@@ -7,6 +7,12 @@
     <Filter Include="Alpha\Events">
       <UniqueIdentifier>{8FAD1E71-7B10-AE15-2496-E6CB10D87998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Alpha\Platform">
+      <UniqueIdentifier>{BF549E4F-AB22-9255-94B6-027C80236EBA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Alpha\Platform\Windows">
+      <UniqueIdentifier>{F94D9851-E547-C1A3-CEB4-57B4BA4D2710}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Alpha.h" />
@@ -34,6 +40,12 @@
     <ClInclude Include="src\Alpha\Log.h">
       <Filter>Alpha</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h">
+      <Filter>Alpha\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Window.h">
+      <Filter>Alpha</Filter>
+    </ClInclude>
     <ClInclude Include="src\appch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>Alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Alpha\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\appch.cpp" />
   </ItemGroup>

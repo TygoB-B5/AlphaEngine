@@ -24,11 +24,11 @@ namespace Alpha
 #define AP_CORE_INFO(...)  ::Alpha::Log::GetCoreLogger()->info(__VA_ARGS__);
 #define AP_CORE_WARN(...)  ::Alpha::Log::GetCoreLogger()->warn(__VA_ARGS__);
 #define AP_CORE_ERROR(...) ::Alpha::Log::GetCoreLogger()->error(__VA_ARGS__);
-#define AP_CORE_FATAL(...) ::Alpha::Log::GetCoreLogger()->fatal(__VA_ARGS__);
+#define AP_CORE_CRITICAL(...) ::Alpha::Log::GetCoreLogger()->critical(__VA_ARGS__); 
 
 // Client log macros
 #define AP_TRACE(...) ::Alpha::Log::GetClientLogger()->trace(__VA_ARGS__);
 #define AP_INFO(...)  ::Alpha::Log::GetClientLogger()->info(__VA_ARGS__);
 #define AP_WARN(...)  ::Alpha::Log::GetClientLogger()->warn(__VA_ARGS__);
 #define AP_ERROR(...) ::Alpha::Log::GetClientLogger()->error(__VA_ARGS__);
-#define AP_FATAL(...) ::Alpha::Log::GetClientLogger()->fatal(__VA_ARGS__);
+#define AP_CRITICAL(...) ::Alpha::Log::GetClientLogger()->critical(__VA_ARGS__);

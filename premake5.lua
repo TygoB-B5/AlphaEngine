@@ -11,6 +11,11 @@ workspace "Alpha"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Alpha/vendor/GLFW/include"
+
+include "Alpha/vendor/GLFW"
+
 project "Alpha"
     location "Alpha"
     kind "SharedLib"
@@ -31,7 +36,14 @@ project "Alpha"
     includedirs
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include;"
+        "%{prj.name}/vendor/spdlog/include;",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"
@@ -50,7 +62,11 @@ project "Alpha"
         }
 
     filter "configurations:Debug"
-        defines "AP_DEBUG"
+        defines
+        {
+        "AP_DEBUG",
+        "AP_ENABLE_ASSERTS"
+        }
         symbols "On"
 
     filter "configurations:Release"

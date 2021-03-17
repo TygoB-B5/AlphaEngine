@@ -3,6 +3,7 @@
 #include "Core.h"
 #include "Log.h"
 #include "Events/Event.h"
+#include "Window.h"
 
 namespace Alpha
 {
@@ -13,6 +14,10 @@ namespace Alpha
 		virtual ~Application();
 
 		void Run();
+
+	private:
+		bool m_Running = true;
+		std::unique_ptr<Window> m_Window;
 	};
 
 	// To be defined in client
