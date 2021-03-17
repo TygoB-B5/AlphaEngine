@@ -38,12 +38,12 @@ namespace Alpha
 		else
 			glfwSwapInterval(0);
 
-		m_Data.VSync = enabled;
+		m_Data.Vsync = enabled;
 	}
 
 	bool WindowsWindow::IsVsync() const
 	{
-		return m_Data.VSync;
+		return m_Data.Vsync;
 	}
 
 	void WindowsWindow::Shutdown() const

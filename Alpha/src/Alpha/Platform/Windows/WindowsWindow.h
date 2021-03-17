@@ -3,7 +3,6 @@
 #include "Alpha/Window.h"
 #include "GLFW/glfw3.h"
 #include "Alpha/Core.h"
-#include "Alpha/Log.h"
 
 namespace Alpha
 {
@@ -33,7 +32,7 @@ namespace Alpha
 		{
 			std::string Title;
 			unsigned int Width, Height;
-			bool VSync;
+			bool Vsync;
 		};
 
 		WindowData m_Data;

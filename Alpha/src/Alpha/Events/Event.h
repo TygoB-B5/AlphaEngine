@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Alpha/Core.h"
+#include "Alpha/Log.h"
 
 namespace Alpha
 {
