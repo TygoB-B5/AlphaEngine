@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Alpha/Core.h"
-#include "Alpha/Log.h"
+#include "appch.h"
 
 namespace Alpha
 {

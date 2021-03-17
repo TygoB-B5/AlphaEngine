@@ -3,7 +3,7 @@
 #include "Alpha/Log.h"
 
 #include <memory>
-#include <iostream>
+#include <ostream>
 #include <utility>
 #include <sstream>
 #include <algorithm>
