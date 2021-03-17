@@ -4,6 +4,9 @@
     <Filter Include="Alpha">
       <UniqueIdentifier>{0B5CD40C-7770-FCBD-40F2-9F1DACC5F8EE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Alpha\Events">
+      <UniqueIdentifier>{8FAD1E71-7B10-AE15-2496-E6CB10D87998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Alpha.h" />
@@ -16,9 +19,22 @@
     <ClInclude Include="src\Alpha\EntryPoint.h">
       <Filter>Alpha</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Events\ApplicationEvent.h">
+      <Filter>Alpha\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Events\Event.h">
+      <Filter>Alpha\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Events\KeyEvent.h">
+      <Filter>Alpha\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Events\MouseEvent.h">
+      <Filter>Alpha\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Log.h">
       <Filter>Alpha</Filter>
     </ClInclude>
+    <ClInclude Include="src\appch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -27,5 +43,6 @@
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\appch.cpp" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,9 @@ project "Alpha"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "appch.h"
+    pchsource "Alpha/src/appch.cpp"
+
     files
     {
         "%{prj.name}/src/**.h",
@@ -27,6 +30,7 @@ project "Alpha"
 
     includedirs
     {
+        "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include;"
     }
 

@@ -1,3 +1,4 @@
+#include "appch.h"
 #include "Log.h"
 
 namespace Alpha
