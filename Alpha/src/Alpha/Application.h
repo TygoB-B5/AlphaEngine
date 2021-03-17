@@ -16,4 +16,3 @@ namespace Alpha
 	// To be defined in client
 	Application* CreateApplication();
 }
-
