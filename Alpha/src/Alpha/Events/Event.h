@@ -39,6 +39,7 @@ namespace Alpha
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0; 
 		virtual std::string ToString() const { return GetName(); }
+		virtual bool GetHandled() const { return m_Handled; }
 
 		inline bool IsInCategory(EventCategory category)
 		{

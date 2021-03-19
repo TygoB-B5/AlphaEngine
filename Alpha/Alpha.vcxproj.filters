@@ -37,6 +37,12 @@
     <ClInclude Include="src\Alpha\Events\MouseEvent.h">
       <Filter>Alpha\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Layer.h">
+      <Filter>Alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\LayerStack.h">
+      <Filter>Alpha</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Log.h">
       <Filter>Alpha</Filter>
     </ClInclude>
@@ -52,6 +58,9 @@
     <ClCompile Include="src\Alpha\Application.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\LayerStack.cpp">
+      <Filter>Alpha</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
@@ -59,5 +68,6 @@
       <Filter>Alpha\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\appch.cpp" />
+    <ClCompile Include="src\Alpha\Layer.cpp" />
   </ItemGroup>
 </Project>

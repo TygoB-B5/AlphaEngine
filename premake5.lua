@@ -5,7 +5,7 @@ workspace "Alpha"
     configurations
     {
         "Debug",
-        "Release",
+        "Release",  
         "Dist"
     }
 
@@ -67,15 +67,18 @@ project "Alpha"
         "AP_DEBUG",
         "AP_ENABLE_ASSERTS"
         }
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
         optimize "On"
+        buildoptions "/MD"
 
     filter "configurations:Dist"
         defines "AP_DIST"
         optimize "On"
+        buildoptions "/MD"
 
 
 project "Sandbox"
@@ -116,11 +119,14 @@ project "Sandbox"
     filter "configurations:Debug"
         defines "AP_DEBUG"
         symbols "On"
+        buildoptions "/MDd"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
         optimize "On"
+        buildoptions "/MD"
 
     filter "configurations:Dist"
         defines "AP_DIST"
         optimize "On"
+        buildoptions "/MD"

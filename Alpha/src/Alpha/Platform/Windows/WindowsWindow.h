@@ -18,7 +18,7 @@ namespace Alpha
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
 		// Window attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) override;
+		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVsync(bool enabled) override;
 		bool IsVsync() const override;
 
@@ -33,6 +33,8 @@ namespace Alpha
 			std::string Title;
 			unsigned int Width, Height;
 			bool Vsync;
+
+			EventCallbackFn EventCallback;
 		};
 
 		WindowData m_Data;
