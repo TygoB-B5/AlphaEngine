@@ -7,8 +7,14 @@
     <Filter Include="Alpha\Events">
       <UniqueIdentifier>{8FAD1E71-7B10-AE15-2496-E6CB10D87998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Alpha\ImGui">
+      <UniqueIdentifier>{756D720B-E122-EB00-6A17-E5D7D6CBE104}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Alpha\Platform">
       <UniqueIdentifier>{BF549E4F-AB22-9255-94B6-027C80236EBA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Alpha\Platform\OpenGL">
+      <UniqueIdentifier>{13513293-7FBD-ED8D-48B1-85EBB4DC0FF6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Alpha\Platform\Windows">
       <UniqueIdentifier>{F94D9851-E547-C1A3-CEB4-57B4BA4D2710}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\Alpha\Events\MouseEvent.h">
       <Filter>Alpha\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\ImGui\ImGuiLayer.h">
+      <Filter>Alpha\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Layer.h">
       <Filter>Alpha</Filter>
     </ClInclude>
@@ -45,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\Log.h">
       <Filter>Alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Alpha\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h">
       <Filter>Alpha\Platform\Windows</Filter>
@@ -58,16 +70,24 @@
     <ClCompile Include="src\Alpha\Application.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\ImGui\ImGuiLayer.cpp">
+      <Filter>Alpha\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Layer.cpp">
+      <Filter>Alpha</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\LayerStack.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp">
       <Filter>Alpha\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\appch.cpp" />
-    <ClCompile Include="src\Alpha\Layer.cpp" />
   </ItemGroup>
 </Project>

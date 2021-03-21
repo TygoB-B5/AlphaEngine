@@ -2,7 +2,6 @@
 
 #include "Alpha/Window.h"
 #include "GLFW/glfw3.h"
-#include "Alpha/Core.h"
 
 namespace Alpha
 {

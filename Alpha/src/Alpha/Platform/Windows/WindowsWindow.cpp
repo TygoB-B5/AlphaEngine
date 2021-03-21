@@ -5,6 +5,8 @@
 #include "Alpha/Events/KeyEvent.h"
 #include "Alpha/Events/MouseEvent.h"
 
+#include "glad/glad.h"
+
 namespace Alpha
 {
 	static bool s_GLFWInitialized = false;
@@ -73,6 +75,10 @@ namespace Alpha
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		AP_CORE_ASSERT(status, "Failed to initialize Glad!");
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
 
@@ -119,6 +125,13 @@ namespace Alpha
 					break;
 				}
 				}
+			});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int character)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				KeyTypedEvent event(character);
+				data.EventCallback(event);
 			});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)

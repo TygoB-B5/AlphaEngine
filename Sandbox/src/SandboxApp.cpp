@@ -1,4 +1,4 @@
-#include <Alpha.h>
+ #include <Alpha.h>
 
 class ExampleLayer : public Alpha::Layer
 {
@@ -24,6 +24,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Alpha::ImGuiLayer);
 	}
 
 	~Sandbox()

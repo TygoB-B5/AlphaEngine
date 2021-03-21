@@ -13,13 +13,18 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Alpha/vendor/GLFW/include"
+IncludeDir["Glad"] = "Alpha/vendor/Glad/include"
+IncludeDir["ImGui"] = "Alpha/vendor/imgui"
 
 include "Alpha/vendor/GLFW"
+include "Alpha/vendor/Glad"
+include "Alpha/vendor/imgui"
 
 project "Alpha"
     location "Alpha"
     kind "SharedLib"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -37,24 +42,29 @@ project "Alpha"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include;",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
+        "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "off"
         systemversion "latest"
 
         defines
         {
             "AP_BUILD_DLL",
-            "AP_PLATFORM_WINDOWS"
+            "AP_PLATFORM_WINDOWS",
+            "GLFW_INCLUDE_NONE"
         }
         postbuildcommands
         {
@@ -67,24 +77,25 @@ project "Alpha"
         "AP_DEBUG",
         "AP_ENABLE_ASSERTS"
         }
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
         optimize "On"
-        buildoptions "/MD"
+        runtime "Release"
 
     filter "configurations:Dist"
         defines "AP_DIST"
         optimize "On"
-        buildoptions "/MD"
+        runtime "Release"
 
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -119,14 +130,14 @@ project "Sandbox"
     filter "configurations:Debug"
         defines "AP_DEBUG"
         symbols "On"
-        buildoptions "/MDd"
+        runtime "Debug"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
         optimize "On"
-        buildoptions "/MD"
+        runtime "Release"
 
     filter "configurations:Dist"
         defines "AP_DIST"
         optimize "On"
-        buildoptions "/MD"
+        runtime "Release"
