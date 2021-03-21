@@ -3,6 +3,8 @@
 
 #include "glad/glad.h"
 
+#include "Input.h"
+
 namespace Alpha
 {
 	Application* Application::s_Instance = nullptr;
@@ -58,7 +60,7 @@ namespace Alpha
 		{
 			glClearColor(0, 0.6f, 0.7f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
-			
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 

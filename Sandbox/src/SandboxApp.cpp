@@ -7,12 +7,12 @@ public:
 		: Layer("Example") {}
 
 
-	void OnUpdate() override
+	virtual void OnUpdate() override
 	{
 		AP_TRACE("ExampleLayer::Update");
 	}
 
-	void OnEvent(Alpha::Event& event) override
+	virtual void OnEvent(Alpha::Event& event) override
 	{
 		AP_TRACE("{0}", event);
 	}
