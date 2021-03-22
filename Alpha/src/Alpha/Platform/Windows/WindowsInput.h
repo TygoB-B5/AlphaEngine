@@ -8,9 +8,7 @@ namespace Alpha
 	{
 	protected:
 		
-		virtual bool IsKeyDownImp(int keycode) override;
-		virtual bool IsKeyHeldImp(int keycode) override;
-		virtual bool IsKeyUpImp(int keycode) override;
+		virtual bool IsKeyPressedImp(int keycode) override;
 
 		virtual bool IsMouseButtonPressedImp(int button) override;
 		virtual float GetMouseXImp() override;

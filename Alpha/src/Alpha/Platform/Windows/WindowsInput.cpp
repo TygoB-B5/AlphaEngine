@@ -7,33 +7,18 @@ namespace Alpha
 {
 	Input* Input::s_Instance = new WindowsInput();
 
-	bool WindowsInput::IsKeyDownImp(int keycode)
+	bool WindowsInput::IsKeyPressedImp(int keycode)
 	{
-		auto* window = (GLFWwindow*)Application::Get()->GetWindow().GetNativeWindow();
+		auto* window = static_cast<GLFWwindow*>(Application::Get()->GetWindow().GetNativeWindow());
 
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool WindowsInput::IsKeyHeldImp(int keycode)
-	{
-		auto* window = (GLFWwindow*)Application::Get()->GetWindow().GetNativeWindow();
-
-		auto state = glfwGetKey(window, keycode);
-		return state == GLFW_REPEAT;
-	}
-
-	bool WindowsInput::IsKeyUpImp(int keycode)
-	{
-		auto* window = (GLFWwindow*)Application::Get()->GetWindow().GetNativeWindow();
-
-		auto state = glfwGetKey(window, keycode);
-		return !(state == GLFW_PRESS || state == GLFW_REPEAT);
-	}
-
 	bool WindowsInput::IsMouseButtonPressedImp(int button)
 	{
-		auto* window = (GLFWwindow*)Application::Get()->GetWindow().GetNativeWindow();
+		auto* window = static_cast<GLFWwindow*>(Application::Get()->GetWindow().GetNativeWindow());
+
 		auto state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
 	}
@@ -52,7 +37,8 @@ namespace Alpha
 
 	std::pair<float, float> WindowsInput::GetMousePositionImp()
 	{
-		auto* window = (GLFWwindow*)Application::Get()->GetWindow().GetNativeWindow();
+		auto* window = static_cast<GLFWwindow*>(Application::Get()->GetWindow().GetNativeWindow());
+
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 

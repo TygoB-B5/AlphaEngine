@@ -7,14 +7,27 @@ public:
 		: Layer("Example") {}
 
 
-	virtual void OnUpdate() override
+	void OnUpdate() override
 	{
-		AP_TRACE("ExampleLayer::Update");
+		if(Alpha::Input::IsKeyPressed(AP_KEY_SPACE))
+			AP_ERROR("hi");
 	}
-
-	virtual void OnEvent(Alpha::Event& event) override
+	
+	void OnEvent(Alpha::Event& event) override
 	{
-		AP_TRACE("{0}", event);
+		if (event.GetEventType() == Alpha::EventType::KeyPressed)
+		{
+			Alpha::KeyPressedEvent& e = (Alpha::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == AP_KEY_SPACE)
+				AP_TRACE("hi");
+		}
+
+		if (event.GetEventType() == Alpha::EventType::KeyReleased)
+		{
+			Alpha::KeyPressedEvent& e = (Alpha::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == AP_KEY_SPACE)
+				AP_WARN("hi");
+		}
 	}
 };
 

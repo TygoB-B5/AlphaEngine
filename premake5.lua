@@ -1,4 +1,4 @@
-workspace "Alpha"
+        workspace "Alpha"
     startproject "Sandbox"
     architecture "x64"
 
@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Alpha/vendor/GLFW/include"
 IncludeDir["Glad"] = "Alpha/vendor/Glad/include"
 IncludeDir["ImGui"] = "Alpha/vendor/imgui"
+IncludeDir["glm"] = "Alpha/vendor/glm"
 
 include "Alpha/vendor/GLFW"
 include "Alpha/vendor/Glad"
@@ -22,7 +23,7 @@ include "Alpha/vendor/imgui"
 
 project "Alpha"
     location "Alpha"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     staticruntime "off"
 
@@ -35,7 +36,9 @@ project "Alpha"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl",
     }
 
     includedirs
@@ -44,7 +47,8 @@ project "Alpha"
         "%{prj.name}/vendor/spdlog/include;",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -57,7 +61,7 @@ project "Alpha"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "off"
+        staticruntime "on"
         systemversion "latest"
 
         defines
@@ -109,7 +113,8 @@ project "Sandbox"
     includedirs
     {
         "Alpha/vendor/spdlog/include",
-        "Alpha/src"
+        "Alpha/src",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -129,15 +134,15 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "AP_DEBUG"
-        symbols "On"
+        symbols "on"
         runtime "Debug"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
-        optimize "On"
+        optimize "on"
         runtime "Release"
 
     filter "configurations:Dist"
         defines "AP_DIST"
-        optimize "On"
+        optimize "on"
         runtime "Release"
