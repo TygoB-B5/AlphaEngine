@@ -25,7 +25,8 @@ project "Alpha"
     location "Alpha"
     kind "StaticLib"
     language "C++"
-    staticruntime "off"
+    staticruntime "on"
+    cppdialect "C++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -33,12 +34,22 @@ project "Alpha"
     pchheader "appch.h"
     pchsource "Alpha/src/appch.cpp"
 
+    flags
+    {
+        "FatalWarnings"
+    }
+
     files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl",
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     includedirs
@@ -60,7 +71,6 @@ project "Alpha"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
         staticruntime "on"
         systemversion "latest"
 
@@ -70,10 +80,6 @@ project "Alpha"
             "AP_PLATFORM_WINDOWS",
             "GLFW_INCLUDE_NONE"
         }
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ..\\bin\\" .. outputdir .. "\\Sandbox")
-        }
 
     filter "configurations:Debug"
         defines
@@ -82,24 +88,24 @@ project "Alpha"
         "AP_ENABLE_ASSERTS"
         }
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configurations:Release"
         defines "AP_RELEASE"
-        optimize "On"
+        optimize "on"
         runtime "Release"
 
     filter "configurations:Dist"
         defines "AP_DIST"
-        optimize "On"
+        optimize "on"
         runtime "Release"
 
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
-    language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,6 +120,7 @@ project "Sandbox"
     {
         "Alpha/vendor/spdlog/include",
         "Alpha/src",
+        "Alpha/vendor",
         "%{IncludeDir.glm}"
     }
 
@@ -123,8 +130,7 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "on"
         systemversion "latest"
 
         defines

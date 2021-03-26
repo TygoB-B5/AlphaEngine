@@ -5,7 +5,7 @@
 #include "Alpha/Events/KeyEvent.h"
 #include "Alpha/Events/MouseEvent.h"
 
-#include "glad/glad.h"
+#include "Alpha/Platform/OpenGL/OpenGLContext.h"
 
 namespace Alpha
 {
@@ -34,7 +34,7 @@ namespace Alpha
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVsync(bool enabled)
@@ -74,10 +74,9 @@ namespace Alpha
 		}
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		AP_CORE_ASSERT(status, "Failed to initialize Glad!");
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);

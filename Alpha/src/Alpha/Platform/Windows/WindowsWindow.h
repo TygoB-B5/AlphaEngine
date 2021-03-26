@@ -2,10 +2,11 @@
 
 #include "Alpha/Window.h"
 #include "GLFW/glfw3.h"
+#include "Alpha/Renderer/GraphicsContext.h"
 
 namespace Alpha
 {
-	class ALPHA_API WindowsWindow : public Window
+	class  WindowsWindow : public Window
 	{
 	public:
 		WindowsWindow(const WindowProps& props);
@@ -28,12 +29,13 @@ namespace Alpha
 		virtual void Shutdown() const;
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool Vsync;
+			std::string Title = "Default Window";
+			unsigned int Width = 1280, Height = 720;
+			bool Vsync = true;
 
 			EventCallbackFn EventCallback;
 		};

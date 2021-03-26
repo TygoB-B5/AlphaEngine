@@ -76,7 +76,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>appch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_DEBUG;AP_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_DEBUG;AP_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -89,17 +90,16 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Alpha\Alpha.lib\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Alpha\Alpha.lib ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Alpha\Alpha.lib ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>appch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -116,17 +116,16 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Alpha\Alpha.lib\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Alpha\Alpha.lib ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Alpha\Alpha.lib ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>appch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;AP_BUILD_DLL;AP_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;AP_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -143,10 +142,8 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Alpha\Alpha.lib\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Alpha\Alpha.lib ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Alpha\Alpha.lib ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Alpha.h" />
@@ -164,9 +161,10 @@
     <ClInclude Include="src\Alpha\LayerStack.h" />
     <ClInclude Include="src\Alpha\Log.h" />
     <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Alpha\Window.h" />
     <ClInclude Include="src\appch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -585,11 +583,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp" />
+    <ClCompile Include="src\Alpha\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Alpha\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Alpha\Layer.cpp" />
     <ClCompile Include="src\Alpha\LayerStack.cpp" />
     <ClCompile Include="src\Alpha\Log.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\appch.cpp">

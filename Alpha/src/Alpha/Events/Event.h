@@ -21,7 +21,7 @@ namespace Alpha
 		EventCategoryInput		 = BIT(1),
 		EventCategoryKeyboard	 = BIT(2),
 		EventCategoryMouse		 = BIT(3),
-		EventCategoryMouseButton = BIT(4)
+		EventCategoryMouseButton = BIT(4),
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() {return EventType::##type; }\
@@ -30,7 +30,7 @@ namespace Alpha
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override {  return category; }
 
-	class ALPHA_API Event
+	class  Event
 	{
 		friend class EventDispatcher;
 
@@ -41,10 +41,13 @@ namespace Alpha
 		virtual std::string ToString() const { return GetName(); }
 		virtual bool GetHandled() const { return m_Handled; }
 
+#pragma warning(push)
+#pragma warning(disable:26812)
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
+#pragma warning(pop)
 
 	protected:
 		bool m_Handled = false;

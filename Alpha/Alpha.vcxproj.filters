@@ -16,9 +16,6 @@
     <Filter Include="src\Alpha\Platform">
       <UniqueIdentifier>{F67482AD-E258-4303-4BB9-3D5637BC2D85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Alpha\Platform\OpenGL">
-      <UniqueIdentifier>{6A2D57E5-D6EF-8A6F-1FA0-19FC8BA1634D}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Alpha\Platform\Windows">
       <UniqueIdentifier>{30B558E8-1CC5-04B9-857E-69D771ADF351}</UniqueIdentifier>
     </Filter>
@@ -89,9 +86,6 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\MouseButtoncodes.h">
       <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h">
       <Filter>src\Alpha\Platform\Windows</Filter>
@@ -1344,10 +1338,15 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
       <Filter>src\Alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\ImGui\ImGuiBuild.cpp">
+      <Filter>src\Alpha\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\ImGui\ImGuiLayer.cpp">
       <Filter>src\Alpha\ImGui</Filter>
@@ -1361,9 +1360,6 @@
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>src\Alpha</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>src\Alpha\Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Alpha\Platform\Windows</Filter>
     </ClCompile>
@@ -1373,5 +1369,6 @@
     <ClCompile Include="src\appch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>

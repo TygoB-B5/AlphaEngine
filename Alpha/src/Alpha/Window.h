@@ -17,7 +17,7 @@ namespace Alpha
 	};
 
 	// Interface representing desktop based window
-	class ALPHA_API Window
+	class  Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

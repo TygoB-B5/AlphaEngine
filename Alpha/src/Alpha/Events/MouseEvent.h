@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class ALPHA_API MouseMovedEvent : public Event
+	class  MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -28,7 +28,7 @@ namespace Alpha
 		float m_MouseY;
 	};
 
-	class ALPHA_API MouseScrolledEvent : public Event
+	class  MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -52,7 +52,7 @@ namespace Alpha
 		float m_YOffset;
 	};
 
-	class ALPHA_API MouseButtonEvent : public Event
+	class  MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -63,10 +63,10 @@ namespace Alpha
 		MouseButtonEvent(int button)
 			: m_Button(button) {}
 
-		float m_Button;
+		int m_Button;
 	};
 
-	class ALPHA_API MouseButtonPressedEvent : public MouseButtonEvent
+	class  MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -82,7 +82,7 @@ namespace Alpha
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class ALPHA_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class  MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

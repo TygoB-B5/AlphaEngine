@@ -1,13 +1,17 @@
 #pragma once
 
 #include "Core.h"
+
+#pragma warning(push)
+#pragma warning(disable:26812 26459 26451 26495 26498)
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/fmt/ostr.h"
+#pragma warning( pop )
 
 namespace Alpha
 {
-	class ALPHA_API Log
+	class  Log
 	{
 	public:
 		static void Init();

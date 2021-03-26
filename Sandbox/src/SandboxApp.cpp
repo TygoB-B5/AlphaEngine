@@ -1,5 +1,7 @@
  #include <Alpha.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Alpha::Layer
 {
 public:
@@ -7,13 +9,21 @@ public:
 		: Layer("Example") {}
 
 
-	void OnUpdate() override
+	virtual void OnUpdate() override
 	{
 		if(Alpha::Input::IsKeyPressed(AP_KEY_SPACE))
 			AP_ERROR("hi");
 	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World!");
+		ImGui::End();
+		
+	}
 	
-	void OnEvent(Alpha::Event& event) override
+	virtual void OnEvent(Alpha::Event& event) override
 	{
 		if (event.GetEventType() == Alpha::EventType::KeyPressed)
 		{
@@ -37,7 +47,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Alpha::ImGuiLayer);
 	}
 
 	~Sandbox()

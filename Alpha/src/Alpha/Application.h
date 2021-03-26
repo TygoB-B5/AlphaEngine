@@ -7,9 +7,11 @@
 #include <Alpha/Events/KeyEvent.h>
 #include <Alpha/Events/ApplicationEvent.h>
 
+#include "ImGui/ImGuiLayer.h"
+
 namespace Alpha
 {
-	class ALPHA_API Application
+	class  Application
 	{
 	public:
 		Application();
@@ -29,6 +31,7 @@ namespace Alpha
 
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
 	private:
