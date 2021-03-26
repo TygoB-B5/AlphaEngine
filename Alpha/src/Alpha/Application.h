@@ -36,6 +36,9 @@ namespace Alpha
 
 	private:
 		static Application* s_Instance;
+
+		// TEMP
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	};
 
 	// To be defined in client
