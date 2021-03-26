@@ -2,6 +2,7 @@
 .vs/
 bin-int/
 bin/
+!vendor/bin
 
 
 #files
