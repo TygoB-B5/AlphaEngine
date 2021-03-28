@@ -161,7 +161,11 @@
     <ClInclude Include="src\Alpha\LayerStack.h" />
     <ClInclude Include="src\Alpha\Log.h" />
     <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
+    <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
+    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
@@ -588,9 +592,13 @@
     <ClCompile Include="src\Alpha\Layer.cpp" />
     <ClCompile Include="src\Alpha\LayerStack.cpp" />
     <ClCompile Include="src\Alpha\Log.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
     <ClCompile Include="src\appch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
