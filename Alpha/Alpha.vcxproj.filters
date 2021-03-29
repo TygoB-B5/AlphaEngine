@@ -1340,10 +1340,11 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
+    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1374,9 +1375,10 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

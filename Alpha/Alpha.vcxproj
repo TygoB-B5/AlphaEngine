@@ -165,10 +165,11 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
     <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
-    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
     <ClInclude Include="src\Alpha\Window.h" />
     <ClInclude Include="src\appch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -598,6 +599,7 @@
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
     <ClCompile Include="src\appch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

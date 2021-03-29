@@ -7,16 +7,13 @@ namespace Alpha
 	class Shader
 	{
 	public:
-		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-		~Shader();
+		virtual ~Shader() {};
 
-		void Bind();
-		void UnBind();
+		virtual void Bind() const = 0;
+		virtual void UnBind() const = 0;
 
-		inline uint32_t GetProgram() const { return m_RendererID; }
+		virtual inline uint32_t GetProgram() const = 0;
 
-	private:
-		uint32_t m_RendererID = 0;
-
+		static Shader* Create(std::string vertexSrc, std::string fragmentSrc);
 	};
 }

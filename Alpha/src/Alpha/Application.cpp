@@ -30,18 +30,6 @@ namespace Alpha
 			0.0f, 0.5f, 0.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
-		m_VertexBuffer->Bind();
-
-
-		unsigned int indicis[3] = { 0, 1, 2 };
-
-		m_IndexBuffer.reset(IndexBuffer::Create(indicis, 3));
-		m_IndexBuffer->Bind();
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, m_IndexBuffer->GetCount(), GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
-
 		std::string vertexSrc = R"(
 		#version 330 core
 	
@@ -69,7 +57,19 @@ namespace Alpha
 		}
 	)";
 
-		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+		unsigned int indicis[3] = { 0, 1, 2 };
+
+		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
+		m_VertexBuffer->Bind();
+
+		m_IndexBuffer.reset(IndexBuffer::Create(indicis, 3));
+		m_IndexBuffer->Bind();
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, m_IndexBuffer->GetCount(), GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
+
+		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader->Bind();
 	}
 
 	Application::~Application()
