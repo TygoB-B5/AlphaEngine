@@ -13,6 +13,7 @@
 #include "Alpha/Renderer/Shader.h"
 #include "Alpha/Renderer/Buffer.h"
 #include "Alpha/Renderer/VertexArray.h"
+#include "Alpha/Renderer/Renderer.h"
 
 namespace Alpha
 {

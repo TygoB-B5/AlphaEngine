@@ -10,8 +10,8 @@ namespace Alpha
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RenderAPI::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
-		case RenderAPI::OpenGL: return new OpenGLVertexBuffer(verticies, size);
+		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
+		case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(verticies, size);
 		}
 
 		AP_CORE_ASSERT(false, "Unknown RendererAPI");
@@ -22,8 +22,8 @@ namespace Alpha
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RenderAPI::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
-		case RenderAPI::OpenGL: return new OpenGLIndexBuffer(verticies, count);
+		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
+		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(verticies, count);
 		}
 
 		AP_CORE_ASSERT(false, "Unknown RendererAPI");

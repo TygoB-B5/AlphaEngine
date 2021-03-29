@@ -1347,6 +1347,9 @@
     <ClInclude Include="src\Alpha\Renderer\Shader.h" />
     <ClInclude Include="src\Alpha\Renderer\VertexArray.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Alpha\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Alpha\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1384,5 +1387,8 @@
     <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
     <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

@@ -9,8 +9,8 @@ namespace Alpha
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RenderAPI::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
-		case RenderAPI::OpenGL: return new OpenGLVertexArray();
+		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
+		case RendererAPI::API::OpenGL: return new OpenGLVertexArray();
 		}
 
 		AP_CORE_ASSERT(false, "Unknown RendererAPI");
