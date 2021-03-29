@@ -12,6 +12,7 @@
 // TEMP
 #include "Alpha/Renderer/Shader.h"
 #include "Alpha/Renderer/Buffer.h"
+#include "Alpha/Renderer/VertexArray.h"
 
 namespace Alpha
 {
@@ -41,12 +42,11 @@ namespace Alpha
 	private:
 		static Application* s_Instance;
 
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
-		// TEMP
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Shader> m_SquareShader;
+		std::shared_ptr<VertexArray> m_SquareVertexArray;
 	};
 
 	// To be defined in client
