@@ -16,8 +16,14 @@
     <Filter Include="src\Alpha\Platform">
       <UniqueIdentifier>{F67482AD-E258-4303-4BB9-3D5637BC2D85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Alpha\Platform\OpenGL">
+      <UniqueIdentifier>{6A2D57E5-D6EF-8A6F-1FA0-19FC8BA1634D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Alpha\Platform\Windows">
       <UniqueIdentifier>{30B558E8-1CC5-04B9-857E-69D771ADF351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Alpha\Renderer">
+      <UniqueIdentifier>{487C5F88-3460-20DE-9DC0-1A3189C30A60}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -87,11 +93,47 @@
     <ClInclude Include="src\Alpha\MouseButtoncodes.h">
       <Filter>src\Alpha</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h">
       <Filter>src\Alpha\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h">
       <Filter>src\Alpha\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\Buffer.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\RenderCommand.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\Renderer.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\RendererAPI.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\Shader.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\VertexArray.h">
+      <Filter>src\Alpha\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Window.h">
       <Filter>src\Alpha</Filter>
@@ -1338,18 +1380,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
-    <ClInclude Include="src\Alpha\Renderer\Shader.h" />
-    <ClInclude Include="src\Alpha\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Alpha\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Alpha\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1370,25 +1400,47 @@
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>src\Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Alpha\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Alpha\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\Buffer.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\Renderer.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\RendererAPI.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\Shader.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\appch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

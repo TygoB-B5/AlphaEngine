@@ -175,8 +175,13 @@ namespace Alpha
 		return true;
 	}
 
+	int frames = 0;
+	auto start = std::chrono::steady_clock::now();
+
 	void Application::Run()
 	{
+		m_Window->SetVsync(false);
+
 		while (m_Running)
 		{
 			RenderCommand::SetClearColor({ 0.3f, 0.3f, 0.3f, 1.0f });
@@ -202,7 +207,17 @@ namespace Alpha
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
-			m_Window->OnUpdate();	
+			m_Window->OnUpdate();
+			
+			frames++;
+			auto end = std::chrono::steady_clock::now();
+			if (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() >= 1)
+			{
+				AP_CORE_TRACE("FPS: {0}", frames);
+
+				start = std::chrono::steady_clock::now();
+				frames = 0;		
+			}
 		}
 	}
 }
