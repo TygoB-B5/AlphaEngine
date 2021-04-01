@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class  Input
+	class Input
 	{
 	public:
 		

@@ -11,6 +11,17 @@
 #include "Alpha/KeyCodes.h"
 #include "Alpha/MouseButtoncodes.h"
 
+// Renderer
+#include "Alpha/Renderer/Shader.h"
+#include "Alpha/Renderer/Buffer.h"
+#include "Alpha/Renderer/VertexArray.h"
+#include "Alpha/Renderer/Renderer.h"
+#include "Alpha/Renderer/RenderCommand.h"
+#include "Alpha/Renderer/OrtographicCamera.h"
+
+// Time
+#include "Alpha/Time.h"
+
 // ImGui Layer
 #include "Alpha/ImGui/ImGuiLayer.h"
 

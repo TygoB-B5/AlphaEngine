@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "glm/glm.hpp"
 
 namespace Alpha
 {
@@ -11,6 +12,9 @@ namespace Alpha
 
 		virtual void Bind() const = 0;
 		virtual void UnBind() const = 0;
+
+		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) = 0;
+		virtual void UploadUniformFloat4(const std::string& name, const glm::vec4& vector) = 0;
 
 		virtual inline uint32_t GetProgram() const = 0;
 

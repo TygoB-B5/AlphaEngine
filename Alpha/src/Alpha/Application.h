@@ -4,16 +4,11 @@
 #include "Core.h"
 
 #include "Events/Event.h"
-#include <Alpha/Events/KeyEvent.h>
 #include <Alpha/Events/ApplicationEvent.h>
 
-#include "ImGui/ImGuiLayer.h"
+#include "Input.h"
 
-// TEMP
-#include "Alpha/Renderer/Shader.h"
-#include "Alpha/Renderer/Buffer.h"
-#include "Alpha/Renderer/VertexArray.h"
-#include "Alpha/Renderer/Renderer.h"
+#include "ImGui/ImGuiLayer.h"
 
 namespace Alpha
 {
@@ -42,12 +37,6 @@ namespace Alpha
 
 	private:
 		static Application* s_Instance;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_SquareShader;
-		std::shared_ptr<VertexArray> m_SquareVertexArray;
 	};
 
 	// To be defined in client

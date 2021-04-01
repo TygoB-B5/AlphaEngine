@@ -1380,6 +1380,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h" />
+    <ClInclude Include="src\Alpha\Time.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1442,5 +1445,8 @@
     <ClCompile Include="src\appch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp" />
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp" />
+    <ClCompile Include="src\Alpha\Time.cpp" />
   </ItemGroup>
 </Project>
