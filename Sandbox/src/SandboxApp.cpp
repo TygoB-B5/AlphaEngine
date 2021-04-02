@@ -33,50 +33,17 @@ public:
 		triangleIndexBuffer.reset(Alpha::IndexBuffer::Create(indicis, sizeof(indicis) / sizeof(unsigned int)));
 		triangleIndexBuffer->Bind();
 
-		std::string vertexSrc = R"(
-		#version 330 core
-	
-		layout(location = 0) in vec3 a_Position;
-		layout(location = 1) in vec4 a_Color;
-
-		uniform mat4 u_ViewProjection;
-		uniform mat4 u_Transform;		
-	
-		out vec4 v_Color;	
-
-		void main()
-		{
-			v_Color = a_Color;
-			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-		}
-	)";
-
-		std::string fragmentSrc = R"(
-		#version 330 core
-
-		layout(location = 0) out vec4 o_Color;		
-		in vec4 v_Color;
-
-		void main()
-		{
-			o_Color = v_Color;
-		}
-	)";
-
-		m_Shader.reset(Alpha::Shader::Create(vertexSrc, fragmentSrc));
-		m_Shader->Bind();
-
 		m_VertexArray.reset(Alpha::VertexArray::Create());
 		m_VertexArray->AddVertexBuffer(triangleVertexBuffer);
 		m_VertexArray->SetIndexBuffer(triangleIndexBuffer);
 
 
-		float squareVerticies[3 * 4] =
+		float squareVerticies[5 * 4] =
 		{
-			-1.0f, -1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			1.0f, 1.0f, 0.0f,
-			-1.0f, 1.0f, 0.0f
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 		};
 
 		Alpha::Ref<Alpha::VertexBuffer> squareVertexBuffer;
@@ -84,6 +51,7 @@ public:
 		squareVertexBuffer->SetLayout(
 			{
 				{Alpha::ShaderDataType::Float3, "a_Position" },
+				{Alpha::ShaderDataType::Float2, "a_TexCoord" },
 			});
 
 		squareVertexBuffer->Bind();
@@ -124,6 +92,46 @@ public:
 		m_SquareShader.reset(Alpha::Shader::Create(squareVertexSrc, squareFragmentSrc));
 		m_SquareShader->Bind();
 
+		std::string textureVertexSrc = R"(
+		#version 330 core
+	
+		layout(location = 0) in vec3 a_Position;
+		layout(location = 1) in vec2 a_TexCoord;
+		
+		out vec2 v_TexCoord;	
+
+		uniform mat4 u_ViewProjection;
+		uniform mat4 u_Transform;		
+
+		void main()
+		{
+			v_TexCoord = a_TexCoord;
+			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+		}
+	)";
+
+		std::string textureFragmentSrc = R"(
+		#version 330 core
+
+		layout(location = 0) out vec4 o_Color;	
+
+		in vec2 v_TexCoord;
+		uniform sampler2D u_Texture;
+
+		void main()
+		{
+			o_Color = texture(u_Texture, v_TexCoord);
+		}
+	)";
+
+		m_TextureShader.reset(Alpha::Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+		m_Texture = Alpha::Texture2D::Create("assets/textures/no.png");
+
+		m_TextureShader->Bind();
+		m_TextureShader->UploadUniformInt("u_Texture", 0);
+
+
 		m_SquareVertexArray.reset(Alpha::VertexArray::Create());
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
@@ -145,7 +153,7 @@ public:
 		{
 			m_SquarePosition.y += 1 * deltaTime;
 		}
-
+		
 		if (Alpha::Input::IsKeyPressed(AP_KEY_S))
 		{
 			m_SquarePosition.y -= 1 * deltaTime;
@@ -155,19 +163,19 @@ public:
 
 		Alpha::RenderCommand::SetClearColor({ 0.3f, 0.3f, 0.3f, 1.0f });
 		Alpha::RenderCommand::Clear();
-
-		m_SquareShader->UploadUniformFloat3("u_Color", m_SquareColor);
-
+		m_Texture->Bind();
 		for (unsigned short x = 0; x < 20; x++)
 		{
 			for (unsigned short y = 0; y < 20; y++)
 			{
-				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(x * 0.1f, y * 0.1f, 0));
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(x * 0.1f + 1.8f, y * 0.1f, 0));
 				glm::mat4 transformAndScale = glm::scale(transform, glm::vec3(0.04f, 0.04f, 0.04f));
-
+				m_SquareShader->UploadUniformFloat3("u_Color", m_SquareColor);
 				Alpha::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transformAndScale);
 			}
 		}
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(0.5f, 0.5f, 0));
+		Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, transform);
 	}
 
 	virtual void OnImGuiRender() override
@@ -183,17 +191,17 @@ public:
 	}
 
 	private:
-		float a = 0;
-		Alpha::Ref<Alpha::Shader> m_Shader;
 		Alpha::Ref<Alpha::VertexArray> m_VertexArray;
 
-		Alpha::Ref<Alpha::Shader> m_SquareShader;
+		Alpha::Ref<Alpha::Shader> m_SquareShader, m_TextureShader;
 		Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
 
 		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
 
 		glm::vec3 m_SquarePosition = {0, 0, 0};
-		glm::vec3 m_SquareColor = { 0.4f, 0.2f, 0.8f };
+		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.7f };
+
+		Alpha::Ref<Alpha::Texture2D> m_Texture;
 };
 
 class Sandbox : public Alpha::Application
