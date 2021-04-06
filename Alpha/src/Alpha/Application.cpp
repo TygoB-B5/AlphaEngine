@@ -1,6 +1,7 @@
 #include "appch.h"
 #include "Application.h"
 #include "Time.h"
+#include "Alpha/Renderer/Renderer.h"
 
 namespace Alpha
 {
@@ -15,6 +16,8 @@ namespace Alpha
 		m_Window->SetEventCallback(AP_BIND_EVENT_FN(Application::OnEvent));
 
 		m_ImGuiLayer = new ImGuiLayer;
+
+		Renderer::Init();
 		Time::Init();
 
 		PushOverlay(m_ImGuiLayer);

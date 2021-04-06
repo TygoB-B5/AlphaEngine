@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <functional>
 #include <chrono>
+#include <array>
 
 #include <string>
 #include <vector>

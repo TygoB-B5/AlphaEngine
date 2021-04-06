@@ -12,7 +12,7 @@
 
 namespace Alpha
 {
-	class  Application
+	class Application
 	{
 	public:
 		Application();
