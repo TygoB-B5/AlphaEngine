@@ -6,8 +6,11 @@
 		uniform mat4 u_ViewProjection;
 		uniform mat4 u_Transform;		
 
+		out vec4 u_Color;
+
 		void main()
 		{
+			u_Color = vec4(a_Position, 1.0);
 			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 		}
 
@@ -16,9 +19,9 @@
 
 		layout(location = 0) out vec4 o_Color;
 
-		uniform vec3 u_Color;	
+		in vec4 u_Color;	
 		
 		void main()
 		{
-			o_Color = vec4(u_Color, 1.0);
+			o_Color = u_Color;
 		}

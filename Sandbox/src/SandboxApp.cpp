@@ -71,6 +71,42 @@ public:
 		m_SquareVertexArray.reset(Alpha::VertexArray::Create());
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
+
+
+		float cubeVerticies[8 * 3]
+		{
+			0.0f, 0.0f, 0.0f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 1.0f,	1.0f, 0.0f, 1.0f,	1.0f, 1.0f, 1.0f,  0.0f, 1.0f, 1.0f
+		};
+
+		unsigned int cubeIndices[3 * 6 * 2]
+		{
+			0, 1, 2, 2, 3, 0,
+			2, 1, 5, 5, 6, 2,
+			6, 5, 7, 7, 5, 4,
+			4, 0, 7, 7, 0, 3,
+
+			0, 4, 1, 1, 4, 5,
+			3, 2, 7, 7, 2, 6
+		};
+
+		Alpha::Ref<Alpha::VertexBuffer> cubeVertexBuffer;
+		cubeVertexBuffer.reset(Alpha::VertexBuffer::Create(cubeVerticies, sizeof(cubeVerticies)));
+
+		cubeVertexBuffer->SetLayout(
+			{
+				{Alpha::ShaderDataType::Float3, "a_Position" },
+			});
+
+		cubeVertexBuffer->Bind();
+
+		Alpha::Ref<Alpha::IndexBuffer> cubeIndexBuffer;
+		cubeIndexBuffer.reset(Alpha::IndexBuffer::Create(cubeIndices, sizeof(cubeIndices) / sizeof(unsigned int)));
+		cubeIndexBuffer->Bind();
+
+		m_CubeVertexArray.reset(Alpha::VertexArray::Create());
+		m_CubeVertexArray->AddVertexBuffer(cubeVertexBuffer);
+		m_CubeVertexArray->SetIndexBuffer(cubeIndexBuffer);
 	}
 	virtual void OnUpdate(float deltaTime) override
 	{
@@ -112,12 +148,17 @@ public:
 
 		auto m_TextureShader = m_ShaderLibrary.Get("Texture");
 		
-		m_Texture->Bind();
+		//m_Texture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(0.5f, 0.5f, 0));
-		Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, transform);
+		//Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, transform);
 
-		m_TextureFlushedEmoji->Bind();
-		Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::translate(transform,  glm::vec3(0.5f, 0.5f, 0)));
+		//m_TextureFlushedEmoji->Bind();
+		//Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::translate(transform,  glm::vec3(0.5f, 0.5f, 0)));
+
+		a += deltaTime;
+		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(1, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 300), glm::vec3(1, 1, 1)));
+		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 180), glm::vec3(1, 1, 1)));
+		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 100), glm::vec3(1, 1, 1)));
 
 	}
 
@@ -134,16 +175,19 @@ public:
 	}
 
 	private:
+		float a = 0;
 		Alpha::ShaderLibrary m_ShaderLibrary;
 		Alpha::Ref<Alpha::VertexArray> m_VertexArray;
 
 		Alpha::Ref<Alpha::Shader> m_SquareShader;
 		Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
 
+		Alpha::Ref<Alpha::VertexArray> m_CubeVertexArray;
+
 		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
 
-		glm::vec3 m_SquarePosition = {0, 0, 0};
-		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.7f };
+		glm::vec3 m_SquarePosition = { 0, 0, -5 };
+		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 1.0f };
 
 		Alpha::Ref<Alpha::Texture2D> m_Texture;
 		Alpha::Ref<Alpha::Texture2D> m_TextureFlushedEmoji;

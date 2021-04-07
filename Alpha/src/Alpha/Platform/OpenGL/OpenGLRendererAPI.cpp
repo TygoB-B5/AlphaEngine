@@ -18,6 +18,10 @@ namespace Alpha
 	{
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
+		glDepthRange(0.01, 100.0f);
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
