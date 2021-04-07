@@ -29,7 +29,7 @@ namespace Alpha
 			dataFormat = GL_RGB;
 		}
 
-		AP_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
+		AP_CORE_ASSERT(internalFormat && dataFormat, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
@@ -49,6 +49,6 @@ namespace Alpha
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
-		glBindTextureUnit(slot, m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 }

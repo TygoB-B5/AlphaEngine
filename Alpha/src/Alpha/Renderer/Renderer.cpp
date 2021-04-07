@@ -10,6 +10,11 @@ namespace Alpha
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
+	void Renderer::BeginScene(PerspectiveCamera& camera)
+	{
+		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+	}
+
 	void Renderer::EndScene()
 	{
 
@@ -27,6 +32,7 @@ namespace Alpha
 		shader->UploadUniformMat4("u_Transform", transform);
 
 		vertexArray->Bind();
+
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

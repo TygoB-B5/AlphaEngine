@@ -10,187 +10,163 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		float verticies[3 * 7] =
+		std::array<std::string, 6> cubemapTextures =
 		{
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f
+			"assets/textures/right.jpg",
+			"assets/textures/left.jpg",
+			"assets/textures/top.jpg",
+			"assets/textures/bottom.jpg",
+			"assets/textures/front.jpg",
+			"assets/textures/back.jpg"
 		};
 
-		Alpha::Ref<Alpha::VertexBuffer> triangleVertexBuffer;
-		triangleVertexBuffer.reset(Alpha::VertexBuffer::Create(verticies, sizeof(verticies)));
-		triangleVertexBuffer->SetLayout(
-			{
-				{Alpha::ShaderDataType::Float3, "a_Position" },
-				{Alpha::ShaderDataType::Float4, "a_Color" }
-			});	
-
-		unsigned int indicis[3] = { 0, 1, 2 };
-
-		Alpha::Ref<Alpha::IndexBuffer> triangleIndexBuffer;
-		triangleIndexBuffer.reset(Alpha::IndexBuffer::Create(indicis, sizeof(indicis) / sizeof(unsigned int)));
-		triangleIndexBuffer->Bind();
-
-		m_VertexArray.reset(Alpha::VertexArray::Create());
-		m_VertexArray->AddVertexBuffer(triangleVertexBuffer);
-		m_VertexArray->SetIndexBuffer(triangleIndexBuffer);
+		m_CubemapTexture = Alpha::TextureCubemap::Create(cubemapTextures);
 
 
-		float squareVerticies[5 * 4] =
-		{
-			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-			1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-			1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-			-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		unsigned int indices[] = {
+			// front
+			0, 1, 2,
+			2, 3, 0,
+			// right
+			1, 5, 6,
+			6, 2, 1,
+			// back
+			7, 6, 5,
+			5, 4, 7,
+			// left
+			4, 0, 3,
+			3, 7, 4,
+			// bottom
+			4, 5, 1,
+			1, 0, 4,
+			// top
+			3, 2, 6,
+			6, 7, 3
 		};
 
-		Alpha::Ref<Alpha::VertexBuffer> squareVertexBuffer;
-		squareVertexBuffer.reset(Alpha::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies)));
-		squareVertexBuffer->SetLayout(
+		float vertices[] = {
+			// front
+			-1.0, -1.0,  1.0,
+			 1.0, -1.0,  1.0,
+			 1.0,  1.0,  1.0,
+			-1.0,  1.0,  1.0,
+			// back
+			-1.0, -1.0, -1.0,
+			 1.0, -1.0, -1.0,
+			 1.0,  1.0, -1.0,
+			-1.0,  1.0, -1.0
+		};
+
+
+		Alpha::Ref<Alpha::VertexBuffer> cubemapVertBuffer;
+		cubemapVertBuffer.reset(Alpha::VertexBuffer::Create(vertices, sizeof(vertices)));
+
+		cubemapVertBuffer->SetLayout(
 			{
-				{Alpha::ShaderDataType::Float3, "a_Position" },
-				{Alpha::ShaderDataType::Float2, "a_TexCoord" },
+				{Alpha::ShaderDataType::Float3, "a_Position" }
 			});
+		cubemapVertBuffer->Bind();
 
-		squareVertexBuffer->Bind();
-
-		unsigned int squareIndicis[6] = { 0, 1, 2, 2, 3, 0 };
-
-		Alpha::Ref<Alpha::IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer.reset(Alpha::IndexBuffer::Create(squareIndicis, sizeof(squareIndicis) / sizeof(unsigned int)));
-
-		m_ShaderLibrary.Load("assets/shaders/Texture.glshader");
-		auto m_TextureShader = m_ShaderLibrary.Get("Texture");
-
-		m_Texture = Alpha::Texture2D::Create("assets/textures/no.png");
-		m_TextureFlushedEmoji = Alpha::Texture2D::Create("assets/textures/yes.png");
-
-		m_TextureShader->UploadUniformInt("u_Texture", 0);
-
-		m_SquareShader = m_ShaderLibrary.Load("assets/shaders/Square.glshader");
-		m_SquareVertexArray.reset(Alpha::VertexArray::Create());
-		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
-		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
+		Alpha::Ref<Alpha::IndexBuffer> cubematIndexBuffer;
+		cubematIndexBuffer.reset(Alpha::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
 
 
-		float cubeVerticies[8 * 3]
-		{
-			0.0f, 0.0f, 0.0f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f, 0.0f,  0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f,	1.0f, 0.0f, 1.0f,	1.0f, 1.0f, 1.0f,  0.0f, 1.0f, 1.0f
-		};
+		m_CubemapVertexArray.reset(Alpha::VertexArray::Create());
+		m_CubemapVertexArray->AddVertexBuffer(cubemapVertBuffer);
+		m_CubemapVertexArray->SetIndexBuffer(cubematIndexBuffer);
 
-		unsigned int cubeIndices[3 * 6 * 2]
-		{
-			0, 1, 2, 2, 3, 0,
-			2, 1, 5, 5, 6, 2,
-			6, 5, 7, 7, 5, 4,
-			4, 0, 7, 7, 0, 3,
+		m_CubemapShader = Alpha::Shader::Create("assets/shaders/CubemapSky.glshader");
+		m_CubemapShader->Bind();
 
-			0, 4, 1, 1, 4, 5,
-			3, 2, 7, 7, 2, 6
-		};
 
 		Alpha::Ref<Alpha::VertexBuffer> cubeVertexBuffer;
-		cubeVertexBuffer.reset(Alpha::VertexBuffer::Create(cubeVerticies, sizeof(cubeVerticies)));
+		cubeVertexBuffer.reset(Alpha::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		cubeVertexBuffer->SetLayout(
 			{
-				{Alpha::ShaderDataType::Float3, "a_Position" },
+				{Alpha::ShaderDataType::Float3, "a_Position" }
 			});
-
 		cubeVertexBuffer->Bind();
 
 		Alpha::Ref<Alpha::IndexBuffer> cubeIndexBuffer;
-		cubeIndexBuffer.reset(Alpha::IndexBuffer::Create(cubeIndices, sizeof(cubeIndices) / sizeof(unsigned int)));
-		cubeIndexBuffer->Bind();
+		cubeIndexBuffer.reset(Alpha::IndexBuffer::Create(indices, 3 * 6 * 2));
 
-		m_CubeVertexArray.reset(Alpha::VertexArray::Create());
-		m_CubeVertexArray->AddVertexBuffer(cubeVertexBuffer);
-		m_CubeVertexArray->SetIndexBuffer(cubeIndexBuffer);
+		m_CubeArray.reset(Alpha::VertexArray::Create());
+		m_CubeArray->AddVertexBuffer(cubemapVertBuffer);
+		m_CubeArray->SetIndexBuffer(cubeIndexBuffer);
+
+		m_TextureShader = Alpha::Shader::Create("assets/shaders/Texture.glshader");
+		m_TextureShader->Bind();
+
+		
+
+		std::array<std::string, 6> arr =
+		{
+			"assets/textures/yes.png",
+			"assets/textures/yes.png",
+			"assets/textures/yes.png",
+			"assets/textures/yes.png",
+			"assets/textures/yes.png",
+			"assets/textures/yes.png"
+		};
+
+		m_TestTex = Alpha::TextureCubemap::Create(arr);
+		m_TestTex->Bind();
 	}
+
 	virtual void OnUpdate(float deltaTime) override
 	{
-
-		if (Alpha::Input::IsKeyPressed(AP_KEY_D))
-		{
-			m_SquarePosition.x += 1 * deltaTime;
-		}
-
-		if (Alpha::Input::IsKeyPressed(AP_KEY_A))
-		{
-			m_SquarePosition.x -= 1 * deltaTime;
-		}
-
-		if (Alpha::Input::IsKeyPressed(AP_KEY_W))
-		{
-			m_SquarePosition.y += 1 * deltaTime;
-		}
-		
-		if (Alpha::Input::IsKeyPressed(AP_KEY_S))
-		{
-			m_SquarePosition.y -= 1 * deltaTime;
-		}
-
 		Alpha::Renderer::BeginScene(m_Camera);
 
 		Alpha::RenderCommand::SetClearColor({ 0.3f, 0.3f, 0.3f, 1.0f });
 		Alpha::RenderCommand::Clear();
-		for (unsigned short x = 0; x < 20; x++)
-		{
-			for (unsigned short y = 0; y < 20; y++)
-			{
-				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(x * 0.1f + 1.8f, y * 0.1f, 0));
-				glm::mat4 transformAndScale = glm::scale(transform, glm::vec3(0.04f, 0.04f, 0.04f));
-				m_SquareShader->UploadUniformFloat3("u_Color", m_SquareColor);
-				Alpha::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transformAndScale);
-			}
-		}
 
-		auto m_TextureShader = m_ShaderLibrary.Get("Texture");
-		
-		//m_Texture->Bind();
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(0.5f, 0.5f, 0));
-		//Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, transform);
+		Alpha::RenderCommand::EnableDepthMask(false);
 
-		//m_TextureFlushedEmoji->Bind();
-		//Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::translate(transform,  glm::vec3(0.5f, 0.5f, 0)));
+		m_CubemapTexture->Bind();
+		Alpha::Renderer::Submit(m_CubemapShader, m_CubemapVertexArray, glm::mat4(1.0f));
+			
+		Alpha::RenderCommand::EnableDepthMask(true);
 
-		a += deltaTime;
-		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(1, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 300), glm::vec3(1, 1, 1)));
-		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 180), glm::vec3(1, 1, 1)));
-		Alpha::Renderer::Submit(m_SquareShader, m_CubeVertexArray, glm::translate(transform, glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), glm::radians(a * 100), glm::vec3(1, 1, 1)));
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		m_TestTex->Bind();
+		Alpha::Renderer::Submit(m_TextureShader, m_CubeArray, transform);
+
+		m_Camera.SetRotation({ 0.0f, a, 0.0f });
 	}
 
 	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::ColorEdit3("SquareColor", glm::value_ptr(m_SquareColor));
+		ImGui::SliderFloat3("Cube Pos", (float*)&pos, -20.0f, 20.0f);
+		ImGui::SliderFloat("Rot", &a, -180, 180.0f);
 		ImGui::End();
 	}
 	
 	virtual void OnEvent(Alpha::Event& event) override
 	{
-
 	}
 
 	private:
 		float a = 0;
+		glm::vec3 pos = {0.0f, 0.0f, 0.0f};
 		Alpha::ShaderLibrary m_ShaderLibrary;
-		Alpha::Ref<Alpha::VertexArray> m_VertexArray;
 
-		Alpha::Ref<Alpha::Shader> m_SquareShader;
-		Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
+		Alpha::Ref<Alpha::Shader> m_CubemapShader;
 
-		Alpha::Ref<Alpha::VertexArray> m_CubeVertexArray;
+		Alpha::Ref<Alpha::Shader> m_TextureShader;
 
-		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
+		Alpha::Ref<Alpha::Shader> m_ColorShader;
+		Alpha::Ref<Alpha::VertexArray> m_CubeArray;
 
-		glm::vec3 m_SquarePosition = { 0, 0, -5 };
-		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 1.0f };
+		Alpha::Ref<Alpha::TextureCubemap> m_TestTex;
 
-		Alpha::Ref<Alpha::Texture2D> m_Texture;
-		Alpha::Ref<Alpha::Texture2D> m_TextureFlushedEmoji;
+
+		Alpha::Ref<Alpha::VertexArray> m_CubemapVertexArray;
+		Alpha::Ref<Alpha::TextureCubemap> m_CubemapTexture;
+
+		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(65.0f, (float)16/9, 0.01f, 100.0f);
 };
 
 class Sandbox : public Alpha::Application

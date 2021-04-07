@@ -1,7 +1,8 @@
 #include "appch.h"
 #include "Texture.h"
 #include "Renderer.h"
-#include "Alpha/Platform/OpenGL/OpenGLTexture2D.h"
+#include "Alpha/Platform/OpenGL/Texture/OpenGLTexture2D.h"
+#include "Alpha/Platform/OpenGL/Texture/OpenGLTextureCubemap.h"
 
 namespace Alpha
 {
@@ -11,6 +12,18 @@ namespace Alpha
 		{
 		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
 		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLTexture2D>(filepath);
+		}
+
+		AP_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
+	}
+
+	Ref<TextureCubemap> TextureCubemap::Create(const std::array<std::string, 6>& filepaths)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
+		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLTextureCubemap>(filepaths);
 		}
 
 		AP_CORE_ASSERT(false, "Unknown RendererAPI");

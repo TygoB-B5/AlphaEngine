@@ -11,5 +11,9 @@ namespace Alpha
 		virtual void Init() override;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void DrawArrays(const Ref<VertexArray>& vertexArray) override;
+
+		virtual void EnableDepthMask(bool enabled) override;
+
 	};
 }

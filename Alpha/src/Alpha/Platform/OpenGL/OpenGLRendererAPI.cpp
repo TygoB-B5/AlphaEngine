@@ -21,11 +21,28 @@ namespace Alpha
 
 		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
-		glDepthRange(0.01, 100.0f);
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexbuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
+	void OpenGLRendererAPI::DrawArrays(const Ref<VertexArray>& vertexArray)
+	{
+		GLint size = 0;
+		glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+		glDrawArrays(GL_TRIANGLES, 0, size / sizeof(float));
+
+	}
+
+	void OpenGLRendererAPI::EnableDepthMask(bool enabled)
+	{
+		GLboolean enable = GL_FALSE;
+
+		if (enabled)
+			enable = GL_TRUE;
+
+		glDepthMask(enable);
 	}
 }

@@ -22,6 +22,17 @@ namespace Alpha
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
+		inline static void DrawArrays(const Ref<VertexArray>& vertexArray)
+		{
+			s_RendererAPI->DrawArrays(vertexArray);
+		}
+
+		inline static void EnableDepthMask(bool enabled)
+		{
+			s_RendererAPI->EnableDepthMask(enabled);
+		}
+
+
 		inline static void Init()
 		{
 			s_RendererAPI->Init();

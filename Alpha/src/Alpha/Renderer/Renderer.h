@@ -1,6 +1,8 @@
 #pragma once
 #include "RenderCommand.h"
 #include "OrtographicCamera.h"
+#include "PerspectiveCamera.h"
+
 #include "Shader.h"
 
 namespace Alpha
@@ -9,6 +11,8 @@ namespace Alpha
 	{
 	public:
 		static void BeginScene(OrtographicCamera& camera); // Params
+		static void BeginScene(PerspectiveCamera& camera); // Params
+
 		static void EndScene();
 		static void Init();
 

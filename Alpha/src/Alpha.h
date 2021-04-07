@@ -18,6 +18,7 @@
 #include "Alpha/Renderer/Renderer.h"
 #include "Alpha/Renderer/RenderCommand.h"
 #include "Alpha/Renderer/OrtographicCamera.h"
+#include "Alpha/Renderer/PerspectiveCamera.h"
 
 #include "Alpha/Renderer/Texture.h"
 

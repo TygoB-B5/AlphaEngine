@@ -108,7 +108,7 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.h">
+    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h">
@@ -1401,6 +1401,8 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h" />
+    <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1433,7 +1435,7 @@
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.cpp">
+    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp">
@@ -1481,5 +1483,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />
   </ItemGroup>
 </Project>
