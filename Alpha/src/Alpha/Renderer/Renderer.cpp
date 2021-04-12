@@ -26,7 +26,11 @@ namespace Alpha
 		RenderCommand::Init();
 	}
 
+<<<<<<< HEAD
 	void Renderer::Submit(const Ref<GameObject>& gameObject)
+=======
+	void Renderer::Submit(const Ref<Shader> shader, const Ref<VertexArray> vertexArray, const glm::mat4& transform)
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
 	{
 		auto& meshRenderer = gameObject->GetComponent<MeshRenderer>();
 		auto& shader = meshRenderer->GetMaterial()->GetShader();

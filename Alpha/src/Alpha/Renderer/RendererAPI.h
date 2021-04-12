@@ -21,10 +21,13 @@ namespace Alpha
 		virtual void Init() = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+<<<<<<< HEAD
 		virtual void DrawArrays(const Ref<VertexArray>& vertexArray) = 0;
 
 		virtual void EnableDepthMask(bool enabled) = 0;
 
+=======
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
 
 		static API GetAPI() { return s_API; }
 	private:

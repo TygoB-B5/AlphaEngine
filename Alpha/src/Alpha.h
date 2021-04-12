@@ -25,6 +25,8 @@
 #include "Alpha/Objects/Transform.h"
 
 
+#include "Alpha/Renderer/Texture.h"
+
 // Time
 #include "Alpha/Time.h"
 

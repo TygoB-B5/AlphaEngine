@@ -20,6 +20,7 @@ namespace Alpha
 	public:
 		static Ref<Texture2D> Create(const std::string& filePath);
 	};
+<<<<<<< HEAD
 
 	class TextureCubemap : public Texture
 	{
@@ -33,5 +34,7 @@ namespace Alpha
 	public:
 		static Ref<Texture3D> Create(const std::string& filePath);
 	};
+=======
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
 }
 

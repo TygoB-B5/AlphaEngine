@@ -108,7 +108,11 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h">
+=======
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.h">
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h">
@@ -1401,6 +1405,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h" />
     <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
@@ -1410,6 +1415,8 @@
     <ClInclude Include="src\Alpha\Objects\MeshRenderer.h" />
     <ClInclude Include="src\Alpha\Objects\Transform.h" />
     <ClInclude Include="src\Alpha\Objects\GameObjectCount.h" />
+=======
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1442,7 +1449,11 @@
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp">
+=======
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.cpp">
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp">
@@ -1490,6 +1501,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp" />
     <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp" />
@@ -1497,5 +1509,7 @@
     <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp" />
     <ClCompile Include="src\Alpha\Objects\Transform.cpp" />
     <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp" />
+=======
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
   </ItemGroup>
 </Project>

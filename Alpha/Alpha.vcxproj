@@ -170,7 +170,11 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h" />
+=======
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.h" />
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.h" />
@@ -621,7 +625,11 @@
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp" />
+=======
+    <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTexture2D.cpp" />
+>>>>>>> 8ea3c0db814c87be0651558710da73bd88f2458c
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp" />
