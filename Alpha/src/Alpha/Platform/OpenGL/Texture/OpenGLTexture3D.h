@@ -1,17 +1,14 @@
 #pragma once
 #include <string>
-#include <vector>
 #include "Alpha/Renderer/Texture.h"
 
 namespace Alpha
 {
-	class OpenGLTextureCubemap : public TextureCubemap
+	class OpenGLTexture3D : public Texture3D
 	{
 	public:
-		OpenGLTextureCubemap(const std::array<std::string, 6>& filepaths);
-		OpenGLTextureCubemap(const std::string& filepath);
-
-		virtual ~OpenGLTextureCubemap();
+		OpenGLTexture3D(const std::string& filepath);
+		virtual ~OpenGLTexture3D();
 
 		virtual uint32_t GetWidth() const override { return m_Width; }
 		virtual uint32_t GetHeight() const override { return m_Height; }
@@ -21,7 +18,7 @@ namespace Alpha
 	private:
 		uint32_t m_Width;
 		uint32_t m_Height;
-		std::array<std::string, 6> m_FilePaths;
+		std::string m_FilePath;
 		uint32_t m_RendererID;
 	};
 }
