@@ -1,6 +1,11 @@
 #pragma once
 #include "RenderCommand.h"
 #include "OrtographicCamera.h"
+#include "PerspectiveCamera.h"
+
+#include "Alpha/Objects/GameObject.h"
+
+
 #include "Shader.h"
 
 namespace Alpha
@@ -9,9 +14,12 @@ namespace Alpha
 	{
 	public:
 		static void BeginScene(OrtographicCamera& camera); // Params
-		static void EndScene();
+		static void BeginScene(PerspectiveCamera& camera); // Params
 
-		static void Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray> vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
+		static void EndScene();
+		static void Init();
+
+		static void Submit(const Ref<GameObject>& gameObject);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

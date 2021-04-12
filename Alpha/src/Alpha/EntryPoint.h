@@ -1,4 +1,4 @@
-#pragma once
+#pragma once	
 
 #ifdef AP_PLATFORM_WINDOWS
 extern Alpha::Application* Alpha::CreateApplication();

@@ -1,5 +1,6 @@
 #include "appch.h"
 #include "Renderer.h"
+#include "Alpha/Objects/MeshRenderer.h"
 
 namespace Alpha
 {
@@ -10,18 +11,35 @@ namespace Alpha
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
+	void Renderer::BeginScene(PerspectiveCamera& camera)
+	{
+		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+	}
+
 	void Renderer::EndScene()
 	{
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray> vertexArray, const glm::mat4& transform)
+	void Renderer::Init()
 	{
+		RenderCommand::Init();
+	}
+
+	void Renderer::Submit(const Ref<GameObject>& gameObject)
+	{
+		auto& meshRenderer = gameObject->GetComponent<MeshRenderer>();
+		auto& shader = meshRenderer->GetMaterial()->GetShader();
+
 		shader->Bind();
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_Transform", transform);
+		shader->UploadUniformMat4("u_Transform", gameObject->GetComponent<Transform>()->GetTransformMatrix());
 
+		auto& vertexArray = meshRenderer->GetVertexArray();
+
+		vertexArray->GetIndexbuffer()->Bind();
 		vertexArray->Bind();
+
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

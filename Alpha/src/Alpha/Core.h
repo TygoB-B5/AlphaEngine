@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 #ifndef AP_PLATFORM_WINDOWS
 	#error Alpha only supports windows!
@@ -15,3 +16,12 @@
 #define BIT(x) (1 << x)
 
 #define AP_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+namespace Alpha
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+	
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

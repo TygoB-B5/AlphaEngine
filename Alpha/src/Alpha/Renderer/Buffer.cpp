@@ -18,12 +18,12 @@ namespace Alpha
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* verticies, uint32_t count)
+	IndexBuffer* IndexBuffer::Create(uint32_t* indicies, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: AP_CORE_ASSERT(false, "RenderAPI: \"None\" is not supported") return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(verticies, count);
+		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indicies, count);
 		}
 
 		AP_CORE_ASSERT(false, "Unknown RendererAPI");
