@@ -1,15 +1,18 @@
 #include "appch.h"
 
-#include "OpenGLTexture2D.h"
+#include "OpenGLTexture3D.h"
 #include "glad/glad.h"
 
 #include "stb_image.h"
 
 namespace Alpha
 {
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath)
-		: m_FilePath(filepath)
+	OpenGLTexture3D::OpenGLTexture3D(const std::string& filepath)
+		: m_FilePath(filepath), m_RendererID(0), m_Height(0), m_Width(0)
 	{
+		AP_CORE_ASSERT(false, "Not yet supported!");
+		return;
+
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
@@ -42,12 +45,12 @@ namespace Alpha
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture2D::~OpenGLTexture2D()
+	OpenGLTexture3D::~OpenGLTexture3D()
 	{
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const
+	void OpenGLTexture3D::Bind(uint32_t slot) const
 	{
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}

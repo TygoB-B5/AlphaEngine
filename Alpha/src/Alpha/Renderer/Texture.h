@@ -25,6 +25,13 @@ namespace Alpha
 	{
 	public:
 		static Ref<TextureCubemap> Create(const std::array<std::string, 6>& filepaths);
+		static Ref<TextureCubemap> Create(const std::string& filepath);
+	};
+
+	class Texture3D : public Texture
+	{
+	public:
+		static Ref<Texture3D> Create(const std::string& filePath);
 	};
 }
 

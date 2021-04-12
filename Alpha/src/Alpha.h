@@ -13,14 +13,17 @@
 
 // Renderer
 #include "Alpha/Renderer/Shader.h"
-#include "Alpha/Renderer/Buffer.h"
-#include "Alpha/Renderer/VertexArray.h"
 #include "Alpha/Renderer/Renderer.h"
 #include "Alpha/Renderer/RenderCommand.h"
 #include "Alpha/Renderer/OrtographicCamera.h"
 #include "Alpha/Renderer/PerspectiveCamera.h"
-
 #include "Alpha/Renderer/Texture.h"
+
+// GameObject
+#include "Alpha/Objects/GameObject.h"
+#include "Alpha/Objects/MeshRenderer.h"
+#include "Alpha/Objects/Transform.h"
+
 
 // Time
 #include "Alpha/Time.h"
