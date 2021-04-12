@@ -1403,13 +1403,6 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h" />
     <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h" />
-    <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObject.h" />
-    <ClInclude Include="src\Alpha\Objects\Component.h" />
-    <ClInclude Include="src\Alpha\Objects\MeshRenderer.h" />
-    <ClInclude Include="src\Alpha\Objects\Transform.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObjectCount.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1492,10 +1485,5 @@
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp" />
     <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObject.cpp" />
-    <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp" />
-    <ClCompile Include="src\Alpha\Objects\Transform.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp" />
   </ItemGroup>
 </Project>

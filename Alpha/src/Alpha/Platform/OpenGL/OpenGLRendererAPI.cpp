@@ -21,9 +21,6 @@ namespace Alpha
 
 		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
-
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)

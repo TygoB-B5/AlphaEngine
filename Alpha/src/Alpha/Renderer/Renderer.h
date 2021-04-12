@@ -3,9 +3,6 @@
 #include "OrtographicCamera.h"
 #include "PerspectiveCamera.h"
 
-#include "Alpha/Objects/GameObject.h"
-
-
 #include "Shader.h"
 
 namespace Alpha
@@ -19,7 +16,7 @@ namespace Alpha
 		static void EndScene();
 		static void Init();
 
-		static void Submit(const Ref<GameObject>& gameObject);
+		static void Submit(const Ref<Shader> shader, const Ref<VertexArray> vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

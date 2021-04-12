@@ -1,6 +1,5 @@
 #include "appch.h"
 #include "Renderer.h"
-#include "Alpha/Objects/MeshRenderer.h"
 
 namespace Alpha
 {
@@ -26,18 +25,12 @@ namespace Alpha
 		RenderCommand::Init();
 	}
 
-	void Renderer::Submit(const Ref<GameObject>& gameObject)
+	void Renderer::Submit(const Ref<Shader> shader, const Ref<VertexArray> vertexArray, const glm::mat4& transform)
 	{
-		auto& meshRenderer = gameObject->GetComponent<MeshRenderer>();
-		auto& shader = meshRenderer->GetMaterial()->GetShader();
-
 		shader->Bind();
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_Transform", gameObject->GetComponent<Transform>()->GetTransformMatrix());
+		shader->UploadUniformMat4("u_Transform", transform);
 
-		auto& vertexArray = meshRenderer->GetVertexArray();
-
-		vertexArray->GetIndexbuffer()->Bind();
 		vertexArray->Bind();
 
 		RenderCommand::DrawIndexed(vertexArray);

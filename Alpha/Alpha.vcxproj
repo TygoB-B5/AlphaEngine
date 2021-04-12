@@ -161,11 +161,6 @@
     <ClInclude Include="src\Alpha\LayerStack.h" />
     <ClInclude Include="src\Alpha\Log.h" />
     <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
-    <ClInclude Include="src\Alpha\Objects\Component.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObject.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObjectCount.h" />
-    <ClInclude Include="src\Alpha\Objects\MeshRenderer.h" />
-    <ClInclude Include="src\Alpha\Objects\Transform.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -173,13 +168,11 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
     <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h" />
     <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\Alpha\Renderer\RenderCommand.h" />
@@ -613,10 +606,6 @@
     <ClCompile Include="src\Alpha\Layer.cpp" />
     <ClCompile Include="src\Alpha\LayerStack.cpp" />
     <ClCompile Include="src\Alpha\Log.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObject.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp" />
-    <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp" />
-    <ClCompile Include="src\Alpha\Objects\Transform.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -624,7 +613,6 @@
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />

@@ -9,8 +9,6 @@ namespace Alpha
 	{
 	public:
 		OpenGLTextureCubemap(const std::array<std::string, 6>& filepaths);
-		OpenGLTextureCubemap(const std::string& filepath);
-
 		virtual ~OpenGLTextureCubemap();
 
 		virtual uint32_t GetWidth() const override { return m_Width; }

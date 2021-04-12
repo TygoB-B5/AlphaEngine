@@ -5,7 +5,7 @@
 namespace Alpha
 {
 	PerspectiveCamera::PerspectiveCamera(float fov, float aspectRatio, float zNear, float zFar)
-		: m_ProjectionMatrix(glm::perspective(fov, aspectRatio, zNear, zFar)), m_ViewMatrix(glm::mat4(1.0f)), m_Position(glm::vec3(0)), m_Rotation(glm::vec3(0))
+		: m_ProjectionMatrix(glm::perspective(fov, aspectRatio, zNear, zFar)), m_ViewMatrix(glm::mat4(1.0f)), m_Position(glm::vec3(0))
 	{
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}

@@ -49,6 +49,6 @@ namespace Alpha
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
-		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 }
