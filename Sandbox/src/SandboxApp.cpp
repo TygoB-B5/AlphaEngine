@@ -47,13 +47,13 @@ public:
 		m_TestTex = Alpha::TextureCubemap::Create("assets/textures/wood.jpg");
 		m_TestTex->Bind();
 
-		m_TextureShader = Alpha::Shader::Create("assets/shaders/Texture.glshader");
-		m_TextureShader->Bind();
+		Alpha::Ref<Alpha::Shader> textureShader = Alpha::Shader::Create("assets/shaders/Texture.glshader");
+		textureShader->Bind();
 
 		m_GameObject.reset(new Alpha::GameObject());
 
 		Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
-		material->SetShader(m_TextureShader);
+		material->SetShader(textureShader);
 
 		Alpha::Ref<Alpha::Mesh> a(new Alpha::Mesh);
 		std::vector<float> v(std::begin(vertices), std::end(vertices));
@@ -83,7 +83,7 @@ public:
 
 		m_GameObject->GetComponent<Alpha::Transform>()->SetPosition(pos);
 		m_GameObject->GetComponent<Alpha::Transform>()->SetRotation(glm::vec3(g, g, g) * 20.0f);
-		m_GameObject->GetComponent<Alpha::Transform>()->SetScale(glm::vec3(1.0f) * abs(sin(g)));
+		m_GameObject->GetComponent<Alpha::Transform>()->SetScale(glm::vec3(1.0f) * abs(sin(g)) + 0.1f);
 
 		m_Camera.SetRotation(rot);
 
@@ -146,17 +146,11 @@ public:
 		Alpha::Ref<Alpha::GameObject> m_GameObject;
 		Alpha::Ref<Alpha::GameObject> m_GameObject2;
 
-
-		Alpha::Ref<Alpha::Shader> m_PlaneShader;
 		Alpha::Ref<Alpha::Texture2D> m_PlaneTex;
-		Alpha::Ref<Alpha::VertexArray> m_PlaneArray;
 
-
-		Alpha::Ref<Alpha::Shader> m_TextureShader;
-		Alpha::Ref<Alpha::VertexArray> m_CubeArray;
 		Alpha::Ref<Alpha::TextureCubemap> m_TestTex;
 
-		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(65.0f, (float)16/9, 0.01f, 100.0f);
+		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(45.0f, (float)16/9, 0.01f, 100.0f);
 };
 
 class Sandbox : public Alpha::Application

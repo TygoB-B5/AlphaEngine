@@ -29,7 +29,6 @@ namespace Alpha
 					return std::dynamic_pointer_cast<T>(component);
 			}
 
-			AP_CORE_WARN("Object does not have component: {0}", T::GetStaticName());
 			return nullptr;
 		}
 
