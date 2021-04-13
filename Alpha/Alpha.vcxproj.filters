@@ -13,17 +13,26 @@
     <Filter Include="src\Alpha\ImGui">
       <UniqueIdentifier>{0CA14C23-782C-BAE7-813D-3DDCED4716E8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Alpha\Objects">
+      <UniqueIdentifier>{1B4B9EDF-8761-9C75-D0D8-27973C2E6DFD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Alpha\Platform">
       <UniqueIdentifier>{F67482AD-E258-4303-4BB9-3D5637BC2D85}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Alpha\Platform\OpenGL">
       <UniqueIdentifier>{6A2D57E5-D6EF-8A6F-1FA0-19FC8BA1634D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Alpha\Platform\OpenGL\Texture">
+      <UniqueIdentifier>{CA1C43FE-368B-987D-7F74-537DEB218E19}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Alpha\Platform\Windows">
       <UniqueIdentifier>{30B558E8-1CC5-04B9-857E-69D771ADF351}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Alpha\Renderer">
       <UniqueIdentifier>{487C5F88-3460-20DE-9DC0-1A3189C30A60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Alpha\Renderer\Materials">
+      <UniqueIdentifier>{19799456-0534-8402-AEEB-FC4C9A85CE92}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -96,6 +105,21 @@
     <ClInclude Include="src\Alpha\MouseButtoncodes.h">
       <Filter>src\Alpha</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Objects\Component.h">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Objects\GameObject.h">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Objects\GameObjectCount.h">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Objects\MeshRenderer.h">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Objects\Transform.h">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
@@ -108,14 +132,20 @@
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h">
-      <Filter>src\Alpha\Platform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.h">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.h">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h">
       <Filter>src\Alpha\Platform\Windows</Filter>
@@ -129,7 +159,13 @@
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h">
       <Filter>src\Alpha\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\Materials\Material.h">
+      <Filter>src\Alpha\Renderer\Materials</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h">
       <Filter>src\Alpha\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Renderer\RenderCommand.h">
@@ -1401,15 +1437,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.h" />
-    <ClInclude Include="src\Alpha\Renderer\PerspectiveCamera.h" />
-    <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
-    <ClInclude Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObject.h" />
-    <ClInclude Include="src\Alpha\Objects\Component.h" />
-    <ClInclude Include="src\Alpha\Objects\MeshRenderer.h" />
-    <ClInclude Include="src\Alpha\Objects\Transform.h" />
-    <ClInclude Include="src\Alpha\Objects\GameObjectCount.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1430,6 +1457,18 @@
     <ClCompile Include="src\Alpha\Log.cpp">
       <Filter>src\Alpha</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Objects\GameObject.cpp">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Objects\Transform.cpp">
+      <Filter>src\Alpha\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1442,14 +1481,20 @@
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLShader.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp">
-      <Filter>src\Alpha\Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLTime.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture2D.cpp">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp">
+      <Filter>src\Alpha\Platform\OpenGL\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Alpha\Platform\Windows</Filter>
@@ -1461,6 +1506,9 @@
       <Filter>src\Alpha\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp">
       <Filter>src\Alpha\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp">
@@ -1490,12 +1538,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTextureCubemap.cpp" />
-    <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />
-    <ClCompile Include="src\Alpha\Platform\OpenGL\Texture\OpenGLTexture3D.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObject.cpp" />
-    <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp" />
-    <ClCompile Include="src\Alpha\Objects\Transform.cpp" />
-    <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp" />
   </ItemGroup>
 </Project>

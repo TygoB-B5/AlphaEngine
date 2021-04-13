@@ -29,6 +29,9 @@ namespace Alpha
 	void Renderer::Submit(const Ref<GameObject>& gameObject)
 	{
 		auto& meshRenderer = gameObject->GetComponent<MeshRenderer>();
+		if (!meshRenderer)
+			return;
+
 		auto& shader = meshRenderer->GetMaterial()->GetShader();
 
 		shader->Bind();

@@ -50,9 +50,9 @@ public:
 		m_TextureShader = Alpha::Shader::Create("assets/shaders/Texture.glshader");
 		m_TextureShader->Bind();
 
-		m_GameObject.reset(new Alpha::GameObject("Object"));
+		m_GameObject.reset(new Alpha::GameObject());
 
-		Alpha::Ref<Alpha::Material> material(new Alpha::Material);
+		Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
 		material->SetShader(m_TextureShader);
 
 		Alpha::Ref<Alpha::Mesh> a(new Alpha::Mesh);
@@ -65,6 +65,8 @@ public:
 		renderer->SetMesh(a);
 		renderer->SetMaterial(material);
 		m_GameObject->AddComponent(renderer);
+
+		m_GameObject2.reset(new Alpha::GameObject());
 	}
 
 	virtual void OnUpdate(float deltaTime) override
@@ -76,6 +78,9 @@ public:
 
 		m_TestTex->Bind();
 		Alpha::Renderer::Submit(m_GameObject);
+		Alpha::Renderer::Submit(m_GameObject2);
+
+
 		m_GameObject->GetComponent<Alpha::Transform>()->SetPosition(pos);
 		m_GameObject->GetComponent<Alpha::Transform>()->SetRotation(glm::vec3(g, g, g) * 20.0f);
 		m_GameObject->GetComponent<Alpha::Transform>()->SetScale(glm::vec3(1.0f) * abs(sin(g)));
@@ -120,6 +125,9 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::SliderFloat3("Cube Pos", (float*)&pos, -10.0f, 10.0f);
+		ImGui::Text(m_GameObject->GetName().c_str());
+		ImGui::Text(m_GameObject2->GetName().c_str());
+
 		ImGui::End();
 	}
 
@@ -136,6 +144,7 @@ public:
 		glm::vec3 m_CamPos = { 0.0f, 0.0f, 0.0f };
 
 		Alpha::Ref<Alpha::GameObject> m_GameObject;
+		Alpha::Ref<Alpha::GameObject> m_GameObject2;
 
 
 		Alpha::Ref<Alpha::Shader> m_PlaneShader;

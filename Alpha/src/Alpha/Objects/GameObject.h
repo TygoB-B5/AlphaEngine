@@ -1,6 +1,8 @@
 #pragma once
 #include "Alpha/Core.h"
 #include "Component.h"
+#include "MeshRenderer.h"
+
 #include "Transform.h"
 #include "GameObjectCount.h"
 
@@ -10,11 +12,11 @@ namespace Alpha
 	{
 	public:
 		GameObject(const std::string& name = "")
-		: m_Name(name), m_ObjectID(GameObjectCount::GetNewObjectID())
+		: m_Name(name), m_ObjectID(s_CurrentObjectID++)
 		{
 			if(m_Name == "")
 				m_Name = "New Game Object " + std::to_string(m_ObjectID);
-
+			// Add default Transform Component
 			Ref<Transform> a(new Transform); AddComponent(a);
 		}
 
@@ -34,7 +36,12 @@ namespace Alpha
 		template<class T>
 		inline Ref<T> AddComponent(const Ref<T>& component) { m_Components.push_back(component); return component; }
 
+		const std::string GetName() { return m_Name; }
+
+
 	private:
+		static uint32_t s_CurrentObjectID;
+
 		std::vector<Ref<Component>> m_Components;
 		std::string m_Name;
 		std::string m_Tag;
