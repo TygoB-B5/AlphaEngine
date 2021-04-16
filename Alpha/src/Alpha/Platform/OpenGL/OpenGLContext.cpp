@@ -20,6 +20,7 @@ namespace Alpha
 		AP_CORE_INFO("	Vendor: {0}",	  glGetString(GL_VENDOR));
 		AP_CORE_INFO("	Renderer: {0}", glGetString(GL_RENDERER));
 		AP_CORE_INFO("	Version: {0}",  glGetString(GL_VERSION));
+		AP_CORE_INFO("\n");
 	}
 
 	void OpenGLContext::SwapBuffers()

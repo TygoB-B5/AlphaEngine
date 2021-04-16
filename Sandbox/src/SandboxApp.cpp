@@ -3,113 +3,73 @@
 #include "imgui/imgui.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include <iostream>
+#include <future>
+
 class ExampleLayer : public Alpha::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		unsigned int indices[] = {
-			// front
-			0, 1, 2,
-			2, 3, 0,
-			// right
-			1, 5, 6,
-			6, 2, 1,
-			// back
-			7, 6, 5,
-			5, 4, 7,
-			// left
-			4, 0, 3,
-			3, 7, 4,
-			// bottom
-			4, 5, 1,
-			1, 0, 4,
-			// top
-			3, 2, 6,
-			6, 7, 3
-		};
+		m_SkyboxTex = Alpha::TextureCubemap::Create({ "assets/textures/right.jpg", "assets/textures/left.jpg",
+													  "assets/textures/top.jpg", "assets/textures/bottom.jpg", 
+													  "assets/textures/front.jpg", "assets/textures/back.jpg" });
+		
+		m_TestTex = Alpha::Texture2D::Create("assets/textures/wood.jpg");
 
-		float vertices[] = {
-			// front
-			-1.0, -1.0,  1.0,
-			 1.0, -1.0,  1.0, 
-			 1.0,  1.0,  1.0, 
-			-1.0,  1.0,  1.0, 
-			// back
-			-1.0, -1.0, -1.0,
-			 1.0, -1.0, -1.0, 
-			 1.0,  1.0, -1.0, 
-			-1.0,  1.0, -1.0
-		};
+		for (unsigned short x = 0; x < 1; x++)
+		{
+			Alpha::GameObject object;
 
-		m_TestTex = Alpha::TextureCubemap::Create("assets/textures/wood.jpg");
-		m_TestTex->Bind();
+			Alpha::Ref<Alpha::Shader> textureShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
 
-		Alpha::Ref<Alpha::Shader> textureShader = Alpha::Shader::Create("assets/shaders/Texture.glshader");
-		textureShader->Bind();
+			object.GetTransform()->SetPosition(glm::vec3(x, 0, 0) * 3.0f);
 
-		m_GameObject.reset(new Alpha::GameObject());
+			Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
+			material->SetShader(textureShader);
 
-		Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
-		material->SetShader(textureShader);
+			Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
+			object.AddComponent(renderer);
+			renderer->SetMaterial(material);
 
-		Alpha::Ref<Alpha::Mesh> a(new Alpha::Mesh);
-		std::vector<float> v(std::begin(vertices), std::end(vertices));
-		std::vector<uint32_t> i(std::begin(indices), std::end(indices));
-		a->SetVertices(v);
-		a->SetIndices(i);
+			Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
+			renderer->SetMesh(mesh);
 
-		Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
-		renderer->SetMesh(a);
-		renderer->SetMaterial(material);
-		m_GameObject->AddComponent(renderer);
+			m_GameObjects.push_back(object);
 
-		m_GameObject2.reset(new Alpha::GameObject());
+			m_Future.push_back(std::async([mesh, renderer]
+				{
+					mesh->LoadMeshFromFile("assets/models/sphere.obj");
+				}));
+
+		m_Skybox.SetSkyboxFollowPositionReference(&m_CamPos);
+		}
 	}
 
-	virtual void OnUpdate(float deltaTime) override
+	void CalculateStuff(float deltaTime)
 	{
-		Alpha::Renderer::BeginScene(m_Camera);
-
-		Alpha::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-		Alpha::RenderCommand::Clear();
-
-		m_TestTex->Bind();
-		Alpha::Renderer::Submit(m_GameObject);
-		Alpha::Renderer::Submit(m_GameObject2);
-
-
-		m_GameObject->GetComponent<Alpha::Transform>()->SetPosition(pos);
-		m_GameObject->GetComponent<Alpha::Transform>()->SetRotation(glm::vec3(g, g, g) * 20.0f);
-		m_GameObject->GetComponent<Alpha::Transform>()->SetScale(glm::vec3(1.0f) * abs(sin(g)) + 0.1f);
-
-		m_Camera.SetRotation(rot);
-
 		auto& a = m_Camera.GetViewMatrix();
 		glm::vec3 right = glm::normalize(-glm::vec3(a[0].x, a[1].x, a[2].x));
 		glm::vec3 forward = glm::normalize(-glm::vec3(a[0].z, a[1].z, a[2].z));
 		glm::vec3 up = glm::normalize(-glm::vec3(a[0].y, a[1].y, a[2].y));
 
-
 		if (Alpha::Input::IsKeyPressed(AP_KEY_W))
-			m_CamPos += forward * deltaTime;
+			m_CamPos += forward * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsKeyPressed(AP_KEY_S))
-			m_CamPos += -forward * deltaTime;
+			m_CamPos += -forward * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsKeyPressed(AP_KEY_D))
-			m_CamPos += -right * deltaTime;
+			m_CamPos += -right * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsKeyPressed(AP_KEY_A))
-			m_CamPos += right * deltaTime;
+			m_CamPos += right * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsKeyPressed(AP_KEY_Q))
-			m_CamPos += up * deltaTime;
+			m_CamPos += up * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsKeyPressed(AP_KEY_E))
-			m_CamPos += -up * deltaTime;
+			m_CamPos += -up * 10.0f * deltaTime;
 
 		if (Alpha::Input::IsMouseButtonPressed(0))
 			s += 180 * deltaTime;
@@ -118,16 +78,52 @@ public:
 
 		rot.y = s;
 		g += deltaTime;
+
 		m_Camera.SetPosition(m_CamPos);
+		m_Dirlight.SetDirection(glm::vec3(-0.5f, -1.0f, -0.2f));
+	}
+
+	virtual void OnUpdate(const float deltaTime) override
+	{
+		ExampleLayer::CalculateStuff(deltaTime);
+		m_Camera.SetRotation(rot);
+
+
+		Alpha::Renderer::BeginScene(m_Camera);
+
+		Alpha::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		Alpha::RenderCommand::Clear();
+
+		Alpha::RenderCommand::EnableDepthMask(false);
+		m_SkyboxTex->Bind();
+		Alpha::Renderer::Submit(m_Skybox.GetVertexArray(), m_Skybox.GetShader(), m_Skybox.GetTransofrmMatrix());
+		Alpha::RenderCommand::EnableDepthMask(true);
+
+		m_TestTex->Bind();
+		for (auto& gameObject : m_GameObjects)
+		{
+			auto& meshR = gameObject.GetComponent<Alpha::MeshRenderer>();
+			if (!meshR->IsReadyToInit())
+				return;
+			auto& vert = meshR->GetVertexArray();
+			auto& shad = meshR->GetMaterial()->GetShader();
+			auto& pos = gameObject.GetComponent<Alpha::Transform>()->GetTransformMatrix();
+
+			gameObject.GetTransform()->SetRotation(glm::vec3(0, g, 0) * 80.0f);
+			gameObject.GetTransform()->SetPosition(m_Pos);
+
+			Alpha::Renderer::Submit(vert, shad, pos, m_Dirlight);
+		}
+
 	}
 
 	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::SliderFloat3("Cube Pos", (float*)&pos, -10.0f, 10.0f);
-		ImGui::Text(m_GameObject->GetName().c_str());
-		ImGui::Text(m_GameObject2->GetName().c_str());
-
+		ImGui::SliderFloat3("Cube Pos", (float*)&m_Pos, -10.0f, 10.0f);
+		ImGui::Value("Fps", Alpha::Time::GetFps());
+		for (auto& gameObject : m_GameObjects)
+			ImGui::Text(gameObject.GetName().c_str());
 		ImGui::End();
 	}
 
@@ -138,19 +134,23 @@ public:
 	private:
 		float s = 0;
 		float g = 0;
+		int b = 0;
 
-		glm::vec3 pos = {-1.0f, 0.0f, 0.0f};
+		glm::vec3 m_Pos = {0.0f, 0.0f, 0.0f};
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_CamPos = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 m_CamPos = { 0.0f, 0.0f, 4.5f };
 
-		Alpha::Ref<Alpha::GameObject> m_GameObject;
-		Alpha::Ref<Alpha::GameObject> m_GameObject2;
+		std::vector<Alpha::GameObject> m_GameObjects;
+		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;
+		Alpha::Ref<Alpha::Texture2D> m_TestTex;
 
-		Alpha::Ref<Alpha::Texture2D> m_PlaneTex;
+		Alpha::Skybox m_Skybox;
+		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(45.0f, (float)16/9, 0.01f, 1000.0f);
+		Alpha::OrtographicCamera m_OrtCamera = Alpha::OrtographicCamera(-1.6f * 100, 1.6f * 100, -0.9f * 100, 0.9f * 100, 0.01f, 1000.0f);
 
-		Alpha::Ref<Alpha::TextureCubemap> m_TestTex;
+		Alpha::DirectionalLight m_Dirlight = Alpha::DirectionalLight();
 
-		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(45.0f, (float)16/9, 0.01f, 100.0f);
+		std::vector<std::future<void>> m_Future;
 };
 
 class Sandbox : public Alpha::Application

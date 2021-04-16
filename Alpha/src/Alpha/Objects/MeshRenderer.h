@@ -10,15 +10,18 @@ namespace Alpha
 	class Mesh
 	{
 	public:
-		void SetVertices(std::vector<float> vertices) { m_Vertices = vertices; }
-		void SetIndices(std::vector<uint32_t> indices) { m_Indices = indices; }
+		void SetVertices(const std::vector<float>& vertices) { m_Vertices = vertices; }
+		void SetIndices(const std::vector<uint32_t>& indices) { m_Indices = indices; }
 
 		const std::vector<float>& GetVertices() const { return m_Vertices; }
 		const std::vector<uint32_t>& GetIndices() const { return m_Indices; }
+		const void LoadMeshFromFile(const std::string& filepath);
+		const bool IsLoaded() const { return m_IsLoaded; }
 
 	private:
 		std::vector<float> m_Vertices;
 		std::vector<uint32_t> m_Indices;
+		bool m_IsLoaded = false;
 	};
 
 	class MeshRenderer : public Component
@@ -28,16 +31,19 @@ namespace Alpha
 		static std::string GetStaticName() { return "MeshRenderer"; }
 
 	public:
-		void SetMesh(const Ref<Mesh>& mesh);
+		void SetMesh(const Ref<Mesh>& mesh) { m_Mesh = mesh; }
 		void SetMaterial(const Ref<Material>& material);
 
+		const void InitMesh();
+		const bool IsReadyToInit();
+
+		const bool IsInitialized() const { return m_IsInitialized; }
 		const Ref<Mesh>& GetMesh() const { return m_Mesh; }
 		const Ref<Material>& GetMaterial() const { return m_Material; }
-
 		const Ref<VertexArray>& GetVertexArray() const { return m_VertexArray; }
 
-
 	private:
+		bool m_IsInitialized = false;
 		Ref<Mesh> m_Mesh = nullptr;
 		Ref<Material> m_Material = nullptr;
 

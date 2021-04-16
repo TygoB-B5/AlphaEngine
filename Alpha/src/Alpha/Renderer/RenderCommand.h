@@ -32,6 +32,11 @@ namespace Alpha
 			s_RendererAPI->EnableDepthMask(enabled);
 		}
 
+		inline static void SetCullingType(int type)
+		{
+			s_RendererAPI->SetCullingType(type);
+		}
+
 
 		inline static void Init()
 		{

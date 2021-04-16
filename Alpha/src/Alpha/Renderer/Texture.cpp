@@ -3,7 +3,6 @@
 #include "Renderer.h"
 #include "Alpha/Platform/OpenGL/Texture/OpenGLTexture2D.h"
 #include "Alpha/Platform/OpenGL/Texture/OpenGLTexture3D.h"
-
 #include "Alpha/Platform/OpenGL/Texture/OpenGLTextureCubemap.h"
 
 namespace Alpha

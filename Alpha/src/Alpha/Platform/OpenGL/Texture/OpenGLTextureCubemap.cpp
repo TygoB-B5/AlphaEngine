@@ -17,9 +17,13 @@ namespace Alpha
 		for (unsigned int i = 0; i < 6; i++)
 		{
 
+			stbi_set_flip_vertically_on_load(1);
 			unsigned char* data = stbi_load(filepaths[i].c_str(), &width, &height, &nrChannels, 0);
-
-			AP_ASSERT(data, "Image couldnt be loaded!")
+			if(!data)
+			{
+				AP_CORE_ERROR(filepaths[i])
+				AP_ASSERT(false, "Image couldnt be loaded!")
+			}
 
 				GLenum internalFormat = 0, dataFormat = 0;
 			if (nrChannels == 4)
@@ -54,6 +58,7 @@ namespace Alpha
 
 		int width, height, nrChannels;
 
+		stbi_set_flip_vertically_on_load(1);
 		unsigned char* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 
 		AP_ASSERT(data, "Image couldnt be loaded!")

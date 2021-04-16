@@ -2,16 +2,17 @@
 #include "Renderer.h"
 #include "Alpha/Objects/MeshRenderer.h"
 
+
 namespace Alpha
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
-	void Renderer::BeginScene(OrtographicCamera& camera)
+	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
-	void Renderer::BeginScene(PerspectiveCamera& camera)
+	void Renderer::BeginScene(OrtographicCamera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
@@ -26,22 +27,29 @@ namespace Alpha
 		RenderCommand::Init();
 	}
 
-	void Renderer::Submit(const Ref<GameObject>& gameObject)
+	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform, const DirectionalLight& light)
 	{
-		auto& meshRenderer = gameObject->GetComponent<MeshRenderer>();
-		if (!meshRenderer)
-			return;
-
-		auto& shader = meshRenderer->GetMaterial()->GetShader();
-
 		shader->Bind();
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_Transform", gameObject->GetComponent<Transform>()->GetTransformMatrix());
+		shader->UploadUniformMat4("u_Transform", transform);
+		shader->UploadUniformFloat3("u_LightColor", light.GetColor());
+		shader->UploadUniformFloat3("u_LightDirection", light.GetDirection());
 
-		auto& vertexArray = meshRenderer->GetVertexArray();
-
-		vertexArray->GetIndexbuffer()->Bind();
 		vertexArray->Bind();
+		vertexArray->GetIndexbuffer()->Bind();
+
+		RenderCommand::DrawIndexed(vertexArray);
+	}
+
+
+	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform)
+	{
+		shader->Bind();
+		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_Transform", transform);
+
+		vertexArray->Bind();
+		vertexArray->GetIndexbuffer()->Bind();
 
 		RenderCommand::DrawIndexed(vertexArray);
 	}

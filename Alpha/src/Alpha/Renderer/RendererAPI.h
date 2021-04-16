@@ -24,6 +24,7 @@ namespace Alpha
 		virtual void DrawArrays(const Ref<VertexArray>& vertexArray) = 0;
 
 		virtual void EnableDepthMask(bool enabled) = 0;
+		virtual void SetCullingType(int type) = 0;
 
 
 		static API GetAPI() { return s_API; }

@@ -168,6 +168,7 @@
     <ClInclude Include="src\Alpha\Objects\Transform.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLMacros.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLTime.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
+    <ClInclude Include="src\Alpha\Renderer\DirectionalLight.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
     <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
     <ClInclude Include="src\Alpha\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Alpha\Renderer\Shader.h" />
+    <ClInclude Include="src\Alpha\Renderer\Skybox.h" />
     <ClInclude Include="src\Alpha\Renderer\Texture.h" />
     <ClInclude Include="src\Alpha\Renderer\VertexArray.h" />
     <ClInclude Include="src\Alpha\Time.h" />
@@ -635,6 +638,7 @@
     <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Alpha\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Skybox.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Texture.cpp" />
     <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Alpha\Time.cpp" />

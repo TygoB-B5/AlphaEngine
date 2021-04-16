@@ -18,6 +18,10 @@
 #include "Alpha/Renderer/OrtographicCamera.h"
 #include "Alpha/Renderer/PerspectiveCamera.h"
 #include "Alpha/Renderer/Texture.h"
+#include "Alpha/Renderer/DirectionalLight.h"
+
+// Macro
+#include "Alpha/Platform/OpenGL/OpenGLMacros.h"
 
 // GameObject
 #include "Alpha/Objects/GameObject.h"

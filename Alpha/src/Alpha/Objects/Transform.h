@@ -11,6 +11,7 @@ namespace Alpha
 		{
 			RecalculateTransformMatrix();
 		}
+
 		virtual std::string GetTypeName() const override { return "Transform"; }
 		static std::string GetStaticName() { return "Transform"; }
 
@@ -24,7 +25,6 @@ namespace Alpha
 		const glm::vec3& GetScale() const { return m_LocalScale; }
 
 		const glm::mat4& GetTransformMatrix() { return m_TransformMatrix; }
-
 
 		void Translate(const glm::vec3& translation) { m_Position += translation; RecalculateTransformMatrix(); }
 		void Rotate(const glm::vec3& rotation) { m_Rotation += rotation; RecalculateTransformMatrix(); }

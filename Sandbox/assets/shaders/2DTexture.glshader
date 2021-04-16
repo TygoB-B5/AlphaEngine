@@ -4,14 +4,12 @@ layout (location = 0) in vec3 u_Position;
 layout (location = 1) in vec2 u_Texcoord;
 
 out vec2 TexCoords;
-out float RepeatCount;
-uniform float u_TexRepeatCount;
+
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
 
 void main()
 {
-    RepeatCount = u_TexRepeatCount;
     TexCoords = u_Texcoord;
     gl_Position = u_ViewProjection * u_Transform * vec4(u_Position, 1.0);
 } 
@@ -21,17 +19,10 @@ void main()
 out vec4 FragColor;
 
 in vec2 TexCoords;
-in float RepeatCount;
 
-uniform sampler2D plane;
+uniform sampler2D tex;
 
 void main()
 {    
-    float RCount = RepeatCount;
-    if(RCount < 1)
-    {
-        RCount = 1;
-    }
-
-    FragColor = texture(plane, TexCoords * RCount);
+    FragColor = texture(tex, TexCoords);
 }

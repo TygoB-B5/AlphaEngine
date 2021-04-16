@@ -1,5 +1,6 @@
 #include "appch.h"
 #include "OpenGLRendererAPI.h"
+#include "OpenGLMacros.h"
 #include "glad/glad.h"
 
 namespace Alpha
@@ -47,5 +48,15 @@ namespace Alpha
 			enable = GL_TRUE;
 
 		glDepthMask(enable);
+	}
+
+	void OpenGLRendererAPI::SetCullingType(int type)
+	{
+		switch (type)
+		{
+		case AP_FRONT:			glCullFace(GL_FRONT); return;
+		case AP_BACK:			glCullFace(GL_BACK); return;
+		case AP_FRONT_AND_BACK: glCullFace(GL_FRONT_AND_BACK); return;
+		}
 	}
 }

@@ -63,10 +63,14 @@ namespace Alpha
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		if (name != "")
-				AP_CORE_ASSERT(Exists(name), "Shader doesnt exist. name: " +  name);
+		{
+			AP_CORE_ASSERT(Exists(name), "Shader doesnt exist. name: " + name)
+			return nullptr;
+		}
 
 		return m_Shaders[name];
 	}
+
 	bool ShaderLibrary::Exists(const std::string& name)
 	{
 		return m_Shaders.find(name) != m_Shaders.end();

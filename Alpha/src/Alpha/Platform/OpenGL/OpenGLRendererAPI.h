@@ -14,6 +14,7 @@ namespace Alpha
 		virtual void DrawArrays(const Ref<VertexArray>& vertexArray) override;
 
 		virtual void EnableDepthMask(bool enabled) override;
+		virtual void SetCullingType(int type) override;
 
 	};
 }

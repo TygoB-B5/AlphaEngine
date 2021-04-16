@@ -35,6 +35,7 @@ namespace Alpha
 		template<class T>
 		inline Ref<T> AddComponent(const Ref<T>& component) { m_Components.push_back(component); return component; }
 
+		const Ref<Transform> GetTransform() const { return std::dynamic_pointer_cast<Transform>(m_Components[0]); }
 		const std::string GetName() { return m_Name; }
 
 
