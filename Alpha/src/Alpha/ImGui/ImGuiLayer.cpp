@@ -61,10 +61,18 @@ namespace Alpha
         ImGui::DestroyContext();
 	}
 
+#ifdef AP_DEBUG
+    #define IMGUI_SHOW_DEMOWINDOW true
+#else
+    #define IMGUI_SHOW_DEMOWINDOW false
+#endif
+
     void ImGuiLayer::OnImGuiRender()
     {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        static bool show = IMGUI_SHOW_DEMOWINDOW;
+
+        if(show)
+            ImGui::ShowDemoWindow(&show);
     }
 
     void ImGuiLayer::Begin()

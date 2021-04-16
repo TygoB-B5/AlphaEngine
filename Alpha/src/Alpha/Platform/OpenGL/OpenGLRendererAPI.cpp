@@ -25,6 +25,9 @@ namespace Alpha
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+
+		glShadeModel(GL_SMOOTH);
+
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)

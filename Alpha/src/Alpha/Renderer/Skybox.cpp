@@ -5,7 +5,7 @@
 namespace Alpha
 {
 	Skybox::Skybox()
-		: m_VertexArray(nullptr), m_TransformMatrix(glm::mat4(1.0f)), m_Shader(Shader::Create("assets/shaders/SkyboxShader.glshader"))
+		: m_VertexArray(nullptr), m_TransformMatrix(glm::mat4(1.0f)), m_Shader(Shader::Create("assets/shaders/BasicSkybox.glshader"))
 	{
 		Ref<VertexBuffer> vertexBuffer(VertexBuffer::Create(m_Vertices, 8 * 3 * 4));
 		vertexBuffer->SetLayout(

@@ -19,7 +19,7 @@ namespace Alpha
 		static void EndScene();
 		static void Init();
 
-		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform, const DirectionalLight& light);
+		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform, const DirectionalLight& light, const glm::vec3& camPos);
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
@@ -28,6 +28,7 @@ namespace Alpha
 		struct SceneData
 		{
 			glm::mat4 ViewProjectionMatrix;
+			glm::mat4 ViewMatrix;
 		};
 
 		static SceneData* m_SceneData;

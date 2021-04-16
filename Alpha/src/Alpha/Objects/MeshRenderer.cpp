@@ -8,21 +8,23 @@ namespace Alpha
 	{
 		m_IsLoaded = false;
 
+		// Open file from path
+		FILE* file = fopen(filepath.c_str(), "r");
+		AP_CORE_ASSERT(!(file == NULL), "Could not open file!")
+		AP_CORE_INFO("Reading file: {0}", filepath);
+
+		// Check if filetype is correct
 		const size_t found = filepath.find_last_of(".");
 		const std::string fileType = filepath.substr(found + 1);
-
 		AP_CORE_ASSERT((fileType == "obj"), "No filetype other than .obj supported for now")
 
+		// Temp storage
 		std::vector<uint32_t> vertexIndices, uvIndices, normalIndices;
 		std::vector<glm::vec3> tempVertices;
 		std::vector<glm::vec2> tempTexcoords;
 		std::vector<glm::vec3> tempNormals;
 
-		FILE* file = fopen(filepath.c_str(), "r");
-
-		AP_CORE_ASSERT(!(file == NULL), "Could not open file!")
-			AP_CORE_INFO("Reading file: {0}", filepath);
-
+		// Read file
 		while (true)
 		{
 			char lineHeader[128] = { 0 };
@@ -57,6 +59,7 @@ namespace Alpha
 
 				AP_CORE_ASSERT((matches == 9), "Indices could not be read! Model probably not triangulated")
 
+				// Push indices in right order
 				vertexIndices.push_back(vertexIndex[0]);
 				vertexIndices.push_back(vertexIndex[1]);
 				vertexIndices.push_back(vertexIndex[2]);
@@ -68,13 +71,15 @@ namespace Alpha
 				normalIndices.push_back(normalIndex[2]);
 			}
 		}
-		fclose(file);
 
+		fclose(file);
 		AP_CORE_ASSERT(!(vertexIndices.empty()), "File does not contain correct data!")
+
 
 		std::vector<float> finalVertices;
 		std::vector<uint32_t> finalIndices;
 
+		// Fill vertices & indices with correct data
 		for (uint32_t i = 0; i < vertexIndices.size(); i++)
 		{
 			finalIndices.push_back(i);
@@ -91,6 +96,7 @@ namespace Alpha
 			finalVertices.push_back(tempNormals[normalIndices[i] - 1].z);
 		}
 
+		// Set mesh variables
 		SetVertices(finalVertices);
 		SetIndices(finalIndices);
 

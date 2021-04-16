@@ -4,51 +4,91 @@ layout (location = 0) in vec3 u_Position;
 layout (location = 1) in vec2 u_Texcoords;
 layout (location = 2) in vec3 u_Normal;
 
-out vec2 o_TexCoords;
+struct DirLight {
+vec3 direction;
+vec3 color;
+vec3 ambientColor;
+float intensity;
+float ambientIntensity;
+};
 
-out vec3 o_LightColor;
+out vec2 o_TexCoords;
 out vec3 o_Normal;
-out vec3 o_LightDirection;
+out mat4 o_Transform;
+out vec3 o_CameraPos;
+out vec3 o_Position;
 
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
 
+uniform vec3 u_CameraPos;
+
 uniform vec3 u_LightColor;
+uniform vec3 u_LightAmbientColor;
 uniform vec3 u_LightDirection;
+uniform float u_LightIntensity;
+uniform float u_LightAmbientIntensity;
+
+out DirLight Light;
 
 void main()
 {
+    DirLight light = DirLight(u_LightDirection, u_LightColor, u_LightAmbientColor, u_LightIntensity, u_LightAmbientIntensity);
+    Light = light;
+
+    o_Transform = u_Transform;
     o_TexCoords = u_Texcoords;
-    o_LightColor = u_LightColor;
     o_Normal = u_Normal;
+    o_CameraPos = u_CameraPos;
+    o_Position = vec3(u_Transform * vec4(u_Position, 1.0));
 
-    vec4 posViewSpace = u_Transform * vec4(u_Position, 1.0);
-
-    o_LightDirection = normalize((vec4(-u_LightDirection, 0.0) * u_Transform).xyz);
-
-    gl_Position = u_ViewProjection * posViewSpace;
+    gl_Position = u_ViewProjection * u_Transform * vec4(u_Position, 1.0);
 } 
 
 #type fragment
 #version 330 core
-out vec4 o_Color;
+out vec4 col;
 
-in vec2 o_TexCoords;
-in vec3 o_LightColor;
+struct DirLight {
+vec3 direction;
+vec3 color;
+vec3 ambientColor;
+float intensity;
+float ambientIntensity;
+};
+
+in mat4 o_Transform;
 in vec3 o_Normal;
-in vec3 o_LightDirection;
+in vec2 o_TexCoords;
+in vec3 o_CameraPos;
+in vec3 o_Position;
+
+in DirLight Light;
 
 uniform sampler2D tex;
 
+vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3 fragPos)
+{
+    vec3 ambient = light.ambientColor * light.ambientIntensity;
+
+    vec3 lightDir = normalize(vec3(vec4(-light.direction, 1.0) * transform));
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = diff * light.color;
+
+    vec3 viewDir = (vec4(normalize(camPos - fragPos), 1.0) * transform).xyz;
+    vec3 reflectDir = reflect(-lightDir, normal);  
+
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 256);
+    vec3 specular = 1 * spec * light.color;  
+
+    return(ambient + diffuse + specular) * light.intensity;
+}
+
 void main()
 {   
-    float ambientStrength = 0.1;
-    vec3 ambient = ambientStrength * o_LightColor;
-    vec4 color = vec4(ambient, 1.0);
+    
+    vec3 output = vec3(1.0, 1.0, 1.0);
+    output = CalcDirLight(Light, o_Normal, o_Transform, o_CameraPos, o_Position);
 
-    float diff = max(dot(o_Normal, o_LightDirection), 0.0);
-    vec3 diffuse = diff * o_LightColor;
-
-    vec4 result = vec4((ambient + diffuse), 1.0);
-    o_Color = texture(tex, o_TexCoords) * result;
+    col = texture(tex, o_TexCoords) * vec4(output, 1.0);
 }
