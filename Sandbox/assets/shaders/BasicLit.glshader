@@ -38,7 +38,7 @@ void main()
 
     o_Transform = u_Transform;
     o_TexCoords = u_Texcoords;
-    o_Normal = u_Normal;
+    o_Normal = mat3(transpose(inverse(u_Transform))) * u_Normal;  
     o_CameraPos = u_CameraPos;
     o_Position = vec3(u_Transform * vec4(u_Position, 1.0));
 
@@ -69,26 +69,28 @@ uniform sampler2D tex;
 
 vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3 fragPos)
 {
-    vec3 ambient = light.ambientColor * light.ambientIntensity;
+    vec3 ambient = light.ambientColor * light.ambientIntensity * light.intensity;
 
-    vec3 lightDir = normalize(vec3(vec4(-light.direction, 1.0) * transform));
+    vec3 lightDir = normalize(-light.direction);
+
+    normal = normalize(normal);
     float diff = max(dot(normal, lightDir), 0.0);
     vec3 diffuse = diff * light.color;
 
-    vec3 viewDir = (vec4(normalize(camPos - fragPos), 1.0) * transform).xyz;
-    vec3 reflectDir = reflect(-lightDir, normal);  
+    vec3 viewDir = normalize(camPos - fragPos);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 256);
-    vec3 specular = 1 * spec * light.color;  
+    vec3 reflectDir = reflect(-lightDir, normal);
 
-    return(ambient + diffuse + specular) * light.intensity;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
+    vec3 specular = 1.5 * spec * light.color;  
+
+    return vec3((ambient + diffuse + specular) * light.intensity);
 }
 
 void main()
 {   
-    
-    vec3 output = vec3(1.0, 1.0, 1.0);
-    output = CalcDirLight(Light, o_Normal, o_Transform, o_CameraPos, o_Position);
+    vec3 output = vec3(0, 0, 0);
+    output += CalcDirLight(Light, o_Normal, o_Transform, o_CameraPos, o_Position);
 
     col = texture(tex, o_TexCoords) * vec4(output, 1.0);
 }

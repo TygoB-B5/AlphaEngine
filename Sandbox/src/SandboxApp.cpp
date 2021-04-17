@@ -15,18 +15,18 @@ public:
 													  "assets/textures/bottom.jpg", "assets/textures/top.jpg", 
 													  "assets/textures/front.jpg", "assets/textures/back.jpg" });
 		
-		m_TestTex = Alpha::Texture2D::Create("assets/textures/debug.png");
+		m_TestTex = Alpha::Texture2D::Create("assets/textures/dragonlore.png");
 
 		for (unsigned short x = 0; x < 1; x++)
 		{
 			Alpha::GameObject object;
 
-			Alpha::Ref<Alpha::Shader> textureShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
+			m_LitShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
 
-			object.GetTransform()->SetPosition(glm::vec3(x, 0, 0) * 3.0f);
+			object.GetTransform()->SetPosition(glm::vec3(x * 6, 0, 0));
 
 			Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
-			material->SetShader(textureShader);
+			material->SetShader(m_LitShader);
 
 			Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
 			object.AddComponent(renderer);
@@ -34,16 +34,17 @@ public:
 
 			Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
 			renderer->SetMesh(mesh);
-
+			
 			m_GameObjects.push_back(object);
 
 			m_Future.push_back(std::async([mesh, renderer]
 				{
-					mesh->LoadMeshFromFile("assets/models/truck.obj");
+				mesh->LoadMeshFromFile("assets/models/dragonlore.obj");
 				}));
 
 		m_Skybox.SetSkyboxFollowPositionReference(&m_CamPos);
 		}
+		m_Dirlight.SetIntensity(1.0f);
 	}
 
 	void CalculateStuff(float deltaTime)
@@ -76,6 +77,9 @@ public:
 			m_CamPos += -up * speed * deltaTime;
 
 
+		if(Alpha::Input::IsKeyPressed(AP_KEY_SPACE))
+			m_LitShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
+
 		float newY = Alpha::Input::GetMouseY();
 		float newX = Alpha::Input::GetMouseX();
 
@@ -91,8 +95,6 @@ public:
 
 		m_Camera.SetPosition(m_CamPos);
 		m_Camera.SetRotation(rot);
-
-		m_Dirlight.SetDirection(glm::vec3(m_DirRot));
 	}
 
 	virtual void OnUpdate(const float deltaTime) override
@@ -115,11 +117,13 @@ public:
 			auto& meshR = gameObject.GetComponent<Alpha::MeshRenderer>();
 			if (!meshR->IsReadyToInit())
 				return;
+
 			auto& vert = meshR->GetVertexArray();
 			auto& shad = meshR->GetMaterial()->GetShader();
 			auto& pos = gameObject.GetComponent<Alpha::Transform>()->GetTransformMatrix();
 
-			//gameObject.GetTransform()->Rotate(glm::vec3(a));
+
+			//gameObject.GetTransform()->Rotate(glm::vec3(90 * deltaTime));
 			Alpha::Renderer::Submit(vert, shad, pos, m_Dirlight, m_Camera.GetPosition());
 		}
 	}
@@ -128,8 +132,6 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::Value("Fps", Alpha::Time::GetFps());
-		ImGui::SliderFloat3("Rot", (float*)&m_DirRot, -1, 1);
-
 		for (auto& gameObject : m_GameObjects)
 			ImGui::Text(gameObject.GetName().c_str());
 		ImGui::End();
@@ -158,10 +160,10 @@ public:
 		float oldY = 0;
 		float oldX = 0;
 
-		glm::vec3 m_DirRot = {0, 0, 0};
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 m_CamPos = { 0, 0, 0};
 
+		Alpha::Ref<Alpha::Shader> m_LitShader;
 		std::vector<Alpha::GameObject> m_GameObjects;
 		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;
 		Alpha::Ref<Alpha::Texture> m_TestTex;
