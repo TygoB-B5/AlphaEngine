@@ -11,11 +11,11 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		m_SkyboxTex = Alpha::TextureCubemap::Create({ "assets/textures/right.jpg", "assets/textures/left.jpg",
-													  "assets/textures/bottom.jpg", "assets/textures/top.jpg", 
-													  "assets/textures/front.jpg", "assets/textures/back.jpg" });
+		m_SkyboxTex = Alpha::TextureCubemap::Create({ "assets/textures/posx.jpg", "assets/textures/negx.jpg",
+													  "assets/textures/negy.jpg", "assets/textures/posy.jpg", 
+													  "assets/textures/posz.jpg", "assets/textures/negz.jpg" });
 		
-		m_TestTex = Alpha::Texture2D::Create("assets/textures/debug.png");
+		m_TestTex = Alpha::Texture2D::Create("assets/textures/dragonlore.png");
 
 		for (unsigned short x = 0; x < 1; x++)
 		{
@@ -38,7 +38,7 @@ public:
 
 			m_Future.push_back(std::async([mesh, renderer]
 				{
-				mesh->LoadMeshFromFile("assets/models/smoothsphere.obj");
+				mesh->LoadMeshFromFile("assets/models/dragonlore.obj");
 				}));
 
 		m_Skybox.SetSkyboxFollowPositionReference(&m_CamPos);

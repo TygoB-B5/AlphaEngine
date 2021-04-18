@@ -98,5 +98,5 @@ void main()
     vec4 modelTex = texture(tex, o_TexCoords);
     vec4 skyboxTex = texture(skybox, reflect(normalize(o_CameraPos - o_Position), normal));
 
-    col = mix(modelTex, skyboxTex, 0.6) * vec4(output, 1.0);
+    col = mix(modelTex * vec4(output, 1.0), skyboxTex, 1);
 }
