@@ -65,6 +65,7 @@ in vec3 o_Position;
 
 in DirLight Light;
 
+uniform samplerCube skybox;
 uniform sampler2D tex;
 
 vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3 fragPos)
@@ -81,8 +82,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3
 
     vec3 reflectDir = reflect(-lightDir, normal);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
-    vec3 specular = 1.5 * spec * light.color;  
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 512);
+    vec3 specular = 1 * spec * light.color;  
 
     return vec3((ambient + diffuse + specular) * light.intensity);
 }
@@ -91,6 +92,11 @@ void main()
 {   
     vec3 output = vec3(0, 0, 0);
     output += CalcDirLight(Light, o_Normal, o_Transform, o_CameraPos, o_Position);
+    
+    vec3 normal = normalize(o_Normal);
 
-    col = texture(tex, o_TexCoords) * vec4(output, 1.0);
+    vec4 modelTex = texture(tex, o_TexCoords);
+    vec4 skyboxTex = texture(skybox, reflect(normalize(o_CameraPos - o_Position), normal));
+
+    col = mix(modelTex, skyboxTex, 0.6) * vec4(output, 1.0);
 }

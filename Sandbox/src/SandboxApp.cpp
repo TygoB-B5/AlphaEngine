@@ -15,7 +15,7 @@ public:
 													  "assets/textures/bottom.jpg", "assets/textures/top.jpg", 
 													  "assets/textures/front.jpg", "assets/textures/back.jpg" });
 		
-		m_TestTex = Alpha::Texture2D::Create("assets/textures/dragonlore.png");
+		m_TestTex = Alpha::Texture2D::Create("assets/textures/debug.png");
 
 		for (unsigned short x = 0; x < 1; x++)
 		{
@@ -24,7 +24,6 @@ public:
 			m_LitShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
 
 			object.GetTransform()->SetPosition(glm::vec3(x * 6, 0, 0));
-
 			Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
 			material->SetShader(m_LitShader);
 
@@ -39,12 +38,11 @@ public:
 
 			m_Future.push_back(std::async([mesh, renderer]
 				{
-				mesh->LoadMeshFromFile("assets/models/dragonlore.obj");
+				mesh->LoadMeshFromFile("assets/models/smoothsphere.obj");
 				}));
 
 		m_Skybox.SetSkyboxFollowPositionReference(&m_CamPos);
 		}
-		m_Dirlight.SetIntensity(1.0f);
 	}
 
 	void CalculateStuff(float deltaTime)
@@ -95,6 +93,9 @@ public:
 
 		m_Camera.SetPosition(m_CamPos);
 		m_Camera.SetRotation(rot);
+
+		b += deltaTime;
+		m_Dirlight.SetDirection(m_DirRot);
 	}
 
 	virtual void OnUpdate(const float deltaTime) override
@@ -107,11 +108,11 @@ public:
 		Alpha::RenderCommand::Clear();
 
 		Alpha::RenderCommand::EnableDepthMask(false);
-		m_SkyboxTex->Bind();
+		m_SkyboxTex->Bind(0);
 		Alpha::Renderer::Submit(m_Skybox.GetVertexArray(), m_Skybox.GetShader(), m_Skybox.GetTransofrmMatrix());
 		Alpha::RenderCommand::EnableDepthMask(true);
 
-		m_TestTex->Bind();
+		m_TestTex->Bind(1);
 		for (auto& gameObject : m_GameObjects)
 		{
 			auto& meshR = gameObject.GetComponent<Alpha::MeshRenderer>();
@@ -123,7 +124,7 @@ public:
 			auto& pos = gameObject.GetComponent<Alpha::Transform>()->GetTransformMatrix();
 
 
-			//gameObject.GetTransform()->Rotate(glm::vec3(90 * deltaTime));
+			//gameObject.GetTransform()->Rotate(glm::vec3(0, 90 * deltaTime, 0));
 			Alpha::Renderer::Submit(vert, shad, pos, m_Dirlight, m_Camera.GetPosition());
 		}
 	}
@@ -132,6 +133,7 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::Value("Fps", Alpha::Time::GetFps());
+		ImGui::SliderFloat3("Light ROtation", (float*)&m_DirRot, -1, 1);
 		for (auto& gameObject : m_GameObjects)
 			ImGui::Text(gameObject.GetName().c_str());
 		ImGui::End();
@@ -162,7 +164,7 @@ public:
 
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 m_CamPos = { 0, 0, 0};
-
+		glm::vec3 m_DirRot = { -0.5f, -1.0f, -0.1f };
 		Alpha::Ref<Alpha::Shader> m_LitShader;
 		std::vector<Alpha::GameObject> m_GameObjects;
 		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;

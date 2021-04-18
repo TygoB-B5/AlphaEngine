@@ -98,6 +98,7 @@ namespace Alpha
 
 	void OpenGLTextureCubemap::Bind(uint32_t slot) const
 	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 }

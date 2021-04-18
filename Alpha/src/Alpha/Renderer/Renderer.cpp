@@ -32,6 +32,10 @@ namespace Alpha
 	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform, const DirectionalLight& light, const glm::vec3& camPos)
 	{
 		shader->Bind();
+		shader->UploadUniformInt("skybox", 0);
+		shader->UploadUniformInt("tex", 1);
+
+
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		shader->UploadUniformMat4("u_Transform", transform);
 		
