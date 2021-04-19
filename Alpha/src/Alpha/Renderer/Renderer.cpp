@@ -1,7 +1,5 @@
 #include "appch.h"
 #include "Renderer.h"
-#include "Alpha/Objects/MeshRenderer.h"
-
 
 namespace Alpha
 {
@@ -9,19 +7,23 @@ namespace Alpha
 
 	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
+		m_SceneData->CameraPosition = camera.GetPosition();
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 		m_SceneData->ViewMatrix = camera.GetViewMatrix();
 	}
 
-	void Renderer::BeginScene(OrtographicCamera& camera)
+	void Renderer::SubmitSkybox()
 	{
-		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
-		m_SceneData->ViewMatrix = camera.GetViewMatrix();
+		m_SceneData->Skybox->SetSkyboxPosition(m_SceneData->CameraPosition);
+
+		RenderCommand::EnableDepthMask(false);
+		m_SceneData->Skybox->GetCubemap()->Bind(0);
+		Alpha::Renderer::Submit(m_SceneData->Skybox->GetVertexArray(), m_SceneData->Skybox->GetShader(), m_SceneData->Skybox->GetTransofrmMatrix());
+		RenderCommand::EnableDepthMask(true);
 	}
 
 	void Renderer::EndScene()
 	{
-
 	}
 
 	void Renderer::Init()
@@ -29,23 +31,18 @@ namespace Alpha
 		RenderCommand::Init();
 	}
 
-	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform, const DirectionalLight& light, const glm::vec3& camPos)
+	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Material>& material, const glm::mat4& transform)
 	{
+		auto& shader = material->GetShader();
+		material->GetAlbedo()->Bind(1);
 		shader->Bind();
-		shader->UploadUniformInt("skybox", 0);
-		shader->UploadUniformInt("tex", 1);
-
 
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		shader->UploadUniformMat4("u_Transform", transform);
+		shader->UploadUniformFloat3("u_CameraPos", m_SceneData->CameraPosition);
+		shader->UploadUniformInt("t_Skybox", 0);
 		
-		shader->UploadUniformFloat3("u_CameraPos", camPos);
-
-		shader->UploadUniformFloat3("u_LightColor", light.GetColor());
-		shader->UploadUniformFloat3("u_LightAmbientColor", light.GetAmbientColor());
-		shader->UploadUniformFloat3("u_LightDirection", light.GetDirection());
-		shader->UploadUniformFloat("u_LightAmbientIntensity", light.GetAmbientIntensity());
-		shader->UploadUniformFloat("u_LightIntensity", light.GetIntensity());
+		material->SubmitPropertiesToShader();
 
 		vertexArray->Bind();
 		vertexArray->GetIndexbuffer()->Bind();

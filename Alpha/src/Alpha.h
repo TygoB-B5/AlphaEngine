@@ -19,6 +19,7 @@
 #include "Alpha/Renderer/PerspectiveCamera.h"
 #include "Alpha/Renderer/Texture.h"
 #include "Alpha/Renderer/DirectionalLight.h"
+#include "Alpha/Renderer/Skybox.h"
 
 // Macro
 #include "Alpha/Platform/OpenGL/OpenGLMacros.h"

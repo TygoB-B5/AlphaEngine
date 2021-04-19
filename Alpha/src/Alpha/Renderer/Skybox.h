@@ -16,16 +16,17 @@ namespace Alpha
 		Skybox();
 
 		void SetCubemap(const Ref<TextureCubemap>& cubemap) { m_Texture = cubemap; };
-		void SetSkyboxFollowPositionReference(glm::vec3* position) { m_FollowPosition = position;  RecalculateTransformMatrix();};
+		void SetSkyboxPosition(glm::vec3 position) { m_FollowPosition = position;  RecalculateTransformMatrix();};
 
 		const Ref<TextureCubemap> GetCubemap() const { return m_Texture; }
 		const Ref<VertexArray> GetVertexArray() const { return m_VertexArray; }
 		const Ref<Shader> GetShader() const { return m_Shader; }
+
 		const glm::mat4 GetTransofrmMatrix() { RecalculateTransformMatrix(); return m_TransformMatrix; }
-		void RecalculateTransformMatrix() { m_TransformMatrix = glm::translate(glm::mat4(1.0f), *m_FollowPosition); }
+		void RecalculateTransformMatrix() { m_TransformMatrix = glm::translate(glm::mat4(1.0f), m_FollowPosition); }
 
 	private:
-		glm::vec3*  m_FollowPosition;
+		glm::vec3 m_FollowPosition;
 		Ref<Shader> m_Shader;
 		Ref<TextureCubemap> m_Texture;
 		Ref<VertexArray> m_VertexArray;

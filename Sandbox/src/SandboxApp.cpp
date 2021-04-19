@@ -11,22 +11,21 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		m_SkyboxTex = Alpha::TextureCubemap::Create({ "assets/textures/posx.jpg", "assets/textures/negx.jpg",
-													  "assets/textures/negy.jpg", "assets/textures/posy.jpg", 
-													  "assets/textures/posz.jpg", "assets/textures/negz.jpg" });
-		
-		m_TestTex = Alpha::Texture2D::Create("assets/textures/dragonlore.png");
+
+		Alpha::Ref<Alpha::Skybox> m_Skybox = std::make_shared<Alpha::Skybox>(Alpha::Skybox());
+		m_Skybox->SetCubemap(Alpha::TextureCubemap::Create({ "assets/textures/right.jpg", "assets/textures/left.jpg",
+													  "assets/textures/bottom.jpg", "assets/textures/top.jpg",
+													  "assets/textures/front.jpg", "assets/textures/back.jpg" }));
+		Alpha::Renderer::SetSkybox(m_Skybox);
 
 		for (unsigned short x = 0; x < 1; x++)
 		{
 			Alpha::GameObject object;
 
-			m_LitShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
-
-			object.GetTransform()->SetPosition(glm::vec3(x * 6, 0, 0));
+			object.GetTransform()->SetPosition(glm::vec3(x * 10, 0, 0));
 			Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
-			material->SetShader(m_LitShader);
-
+			material->SetShader(Alpha::Shader::Create("assets/shaders/BasicLit.glshader"));
+			material->SetAlbedo(Alpha::Texture2D::Create("assets/textures/dragonlore.png"));
 			Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
 			object.AddComponent(renderer);
 			renderer->SetMaterial(material);
@@ -41,7 +40,7 @@ public:
 				mesh->LoadMeshFromFile("assets/models/dragonlore.obj");
 				}));
 
-		m_Skybox.SetSkyboxFollowPositionReference(&m_CamPos);
+		Alpha::Renderer::AddLight(std::make_shared<Alpha::DirectionalLight>(Alpha::DirectionalLight()));
 		}
 	}
 
@@ -74,10 +73,6 @@ public:
 		if (Alpha::Input::IsKeyPressed(AP_KEY_E))
 			m_CamPos += -up * speed * deltaTime;
 
-
-		if(Alpha::Input::IsKeyPressed(AP_KEY_SPACE))
-			m_LitShader = Alpha::Shader::Create("assets/shaders/BasicLit.glshader");
-
 		float newY = Alpha::Input::GetMouseY();
 		float newX = Alpha::Input::GetMouseX();
 
@@ -95,7 +90,7 @@ public:
 		m_Camera.SetRotation(rot);
 
 		b += deltaTime;
-		m_Dirlight.SetDirection(m_DirRot);
+		Alpha::Renderer::GetLight(0)->SetDirection(m_DirRot);
 	}
 
 	virtual void OnUpdate(const float deltaTime) override
@@ -107,25 +102,18 @@ public:
 		Alpha::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Alpha::RenderCommand::Clear();
 
-		Alpha::RenderCommand::EnableDepthMask(false);
-		m_SkyboxTex->Bind(0);
-		Alpha::Renderer::Submit(m_Skybox.GetVertexArray(), m_Skybox.GetShader(), m_Skybox.GetTransofrmMatrix());
-		Alpha::RenderCommand::EnableDepthMask(true);
+		Alpha::Renderer::SubmitSkybox();
 
-		m_TestTex->Bind(1);
 		for (auto& gameObject : m_GameObjects)
 		{
 			auto& meshR = gameObject.GetComponent<Alpha::MeshRenderer>();
 			if (!meshR->IsReadyToInit())
 				return;
 
-			auto& vert = meshR->GetVertexArray();
-			auto& shad = meshR->GetMaterial()->GetShader();
-			auto& pos = gameObject.GetComponent<Alpha::Transform>()->GetTransformMatrix();
-
-
 			//gameObject.GetTransform()->Rotate(glm::vec3(0, 90 * deltaTime, 0));
-			Alpha::Renderer::Submit(vert, shad, pos, m_Dirlight, m_Camera.GetPosition());
+
+			auto& pos = gameObject.GetTransform()->GetTransformMatrix();
+			Alpha::Renderer::Submit(meshR->GetVertexArray(), meshR->GetMaterial(), pos);
 		}
 	}
 
@@ -151,7 +139,7 @@ public:
 
 		auto& a = m_Camera.GetViewMatrix();
 		glm::vec3 forward = glm::normalize(-glm::vec3(a[0].z, a[1].z, a[2].z));
-		m_CamPos += forward * (float)y;
+		m_CamPos += forward * 2.0f * (float)y;
 
 		return true;
 	}
@@ -165,14 +153,12 @@ public:
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 m_CamPos = { 0, 0, 0};
 		glm::vec3 m_DirRot = { -0.5f, -1.0f, -0.1f };
-		Alpha::Ref<Alpha::Shader> m_LitShader;
-		std::vector<Alpha::GameObject> m_GameObjects;
-		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;
-		Alpha::Ref<Alpha::Texture> m_TestTex;
 
-		Alpha::Skybox m_Skybox;
+		std::vector<Alpha::GameObject> m_GameObjects;
+
+		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;
+
 		Alpha::PerspectiveCamera m_Camera = Alpha::PerspectiveCamera(45.0f, (float)16/9, 0.01f, 1000.0f);
-		Alpha::DirectionalLight m_Dirlight = Alpha::DirectionalLight();
 
 		std::vector<std::future<void>> m_Future;
 };

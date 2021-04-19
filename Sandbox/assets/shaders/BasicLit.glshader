@@ -29,13 +29,12 @@ uniform vec3 u_LightDirection;
 uniform float u_LightIntensity;
 uniform float u_LightAmbientIntensity;
 
-out DirLight Light;
+uniform DirLight u_Light;
+out DirLight o_Light;
 
 void main()
 {
-    DirLight light = DirLight(u_LightDirection, u_LightColor, u_LightAmbientColor, u_LightIntensity, u_LightAmbientIntensity);
-    Light = light;
-
+    o_Light = u_Light;
     o_Transform = u_Transform;
     o_TexCoords = u_Texcoords;
     o_Normal = mat3(transpose(inverse(u_Transform))) * u_Normal;  
@@ -63,10 +62,10 @@ in vec2 o_TexCoords;
 in vec3 o_CameraPos;
 in vec3 o_Position;
 
-in DirLight Light;
+in DirLight o_Light;
 
-uniform samplerCube skybox;
-uniform sampler2D tex;
+uniform samplerCube t_Skybox;
+uniform sampler2D t_Albedo;
 
 vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3 fragPos)
 {
@@ -91,12 +90,12 @@ vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3
 void main()
 {   
     vec3 output = vec3(0, 0, 0);
-    output += CalcDirLight(Light, o_Normal, o_Transform, o_CameraPos, o_Position);
+    output += CalcDirLight(o_Light, o_Normal, o_Transform, o_CameraPos, o_Position);
     
     vec3 normal = normalize(o_Normal);
 
-    vec4 modelTex = texture(tex, o_TexCoords);
-    vec4 skyboxTex = texture(skybox, reflect(normalize(o_CameraPos - o_Position), normal));
+    vec4 modelTex = texture(t_Albedo, o_TexCoords);
+    vec4 skyboxTex = texture(t_Skybox, reflect(normalize(o_CameraPos - o_Position), normal));
 
-    col = mix(modelTex * vec4(output, 1.0), skyboxTex, 1);
+    col = vec4(output, 1.0) * mix(modelTex, skyboxTex, 0.5);
 }

@@ -632,6 +632,7 @@
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Materials\Material.cpp" />
     <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp" />
     <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp" />
