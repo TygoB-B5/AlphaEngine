@@ -2,6 +2,7 @@
 #include "../Shader.h"
 #include "../Texture.h"
 #include "Alpha/Core.h"
+#include "Alpha/Math/Math.h"
 
 namespace Alpha
 {
@@ -30,9 +31,9 @@ namespace Alpha
 
 		virtual void SetShader(const Ref<Shader>& shader) override { m_Shader = shader; }
 		virtual void SetAlbedo(const Ref<Texture2D>& texture) override { m_Albedo = texture; }
-
-		virtual void SetRoughness(const float& value) { m_Roughness = value; }
-		virtual void SetMetallic(const float& value) { m_Metallic = value; }
+		 
+		virtual void SetRoughness(const float& value) override {m_Roughness =  Math::Mathf::Clamp(value, 0, 1); }
+		virtual void SetMetallic(const float& value) override { m_Metallic =  Math::Mathf::Clamp(value, 0, 1); }
 
 		virtual void SubmitPropertiesToShader() override;
 	private:

@@ -160,12 +160,15 @@
     <ClInclude Include="src\Alpha\Layer.h" />
     <ClInclude Include="src\Alpha\LayerStack.h" />
     <ClInclude Include="src\Alpha\Log.h" />
+    <ClInclude Include="src\Alpha\Math\Math.h" />
     <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
     <ClInclude Include="src\Alpha\Objects\Component.h" />
     <ClInclude Include="src\Alpha\Objects\GameObject.h" />
     <ClInclude Include="src\Alpha\Objects\GameObjectCount.h" />
     <ClInclude Include="src\Alpha\Objects\MeshRenderer.h" />
+    <ClInclude Include="src\Alpha\Objects\PhysicsBody.h" />
     <ClInclude Include="src\Alpha\Objects\Transform.h" />
+    <ClInclude Include="src\Alpha\Physics.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLMacros.h" />
@@ -619,7 +622,9 @@
     <ClCompile Include="src\Alpha\Objects\GameObject.cpp" />
     <ClCompile Include="src\Alpha\Objects\GameObjectCount.cpp" />
     <ClCompile Include="src\Alpha\Objects\MeshRenderer.cpp" />
+    <ClCompile Include="src\Alpha\Objects\PhysicsBody.cpp" />
     <ClCompile Include="src\Alpha\Objects\Transform.cpp" />
+    <ClCompile Include="src\Alpha\Physics.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />

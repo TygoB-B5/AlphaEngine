@@ -8,7 +8,7 @@ namespace Alpha
 	{
 	public:
 		DirectionalLight(const glm::vec3& direction = glm::vec3(-0.3f, -1.0f, -0.5f), const glm::vec3& color = glm::vec3(1.0f, 1.0f, 0.8f),
-			float intensity = 1.5f, const glm::vec3& ambientColor = glm::vec3(0.4f, 0.5f, 1.0f), float ambientIntensity = 0.1f)
+			float intensity = 1.0f, const glm::vec3& ambientColor = glm::vec3(0.4f, 0.5f, 1.0f), float ambientIntensity = 0.1f)
 			: m_Color(color), m_Direction(direction), m_Intensity(intensity), m_AmbientColor(ambientColor), m_AmbientIntensity(ambientIntensity)
 		{}
 

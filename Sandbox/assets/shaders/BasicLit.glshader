@@ -12,6 +12,11 @@ float intensity;
 float ambientIntensity;
 };
 
+struct Material {
+    float roughness;
+    float metallic;
+};
+
 out vec2 o_TexCoords;
 out vec3 o_Normal;
 out mat4 o_Transform;
@@ -20,23 +25,19 @@ out vec3 o_Position;
 
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
-
 uniform vec3 u_CameraPos;
 
-uniform vec3 u_LightColor;
-uniform vec3 u_LightAmbientColor;
-uniform vec3 u_LightDirection;
-uniform float u_LightIntensity;
-uniform float u_LightAmbientIntensity;
-
 uniform DirLight u_Light;
+uniform Material u_MatProps;
 out DirLight o_Light;
+out Material o_MatProps;
 
 void main()
 {
     o_Light = u_Light;
     o_Transform = u_Transform;
     o_TexCoords = u_Texcoords;
+    o_MatProps = u_MatProps;
     o_Normal = mat3(transpose(inverse(u_Transform))) * u_Normal;  
     o_CameraPos = u_CameraPos;
     o_Position = vec3(u_Transform * vec4(u_Position, 1.0));
@@ -56,6 +57,11 @@ float intensity;
 float ambientIntensity;
 };
 
+struct Material {
+    float roughness;
+    float metallic;
+};
+
 in mat4 o_Transform;
 in vec3 o_Normal;
 in vec2 o_TexCoords;
@@ -63,11 +69,12 @@ in vec3 o_CameraPos;
 in vec3 o_Position;
 
 in DirLight o_Light;
+in Material o_MatProps;
 
 uniform samplerCube t_Skybox;
 uniform sampler2D t_Albedo;
 
-vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3 fragPos)
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 camPos, vec3 fragPos, Material material)
 {
     vec3 ambient = light.ambientColor * light.ambientIntensity * light.intensity;
 
@@ -81,8 +88,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3
 
     vec3 reflectDir = reflect(-lightDir, normal);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 512);
-    vec3 specular = 1 * spec * light.color;  
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4 + (material.roughness * material.roughness * 256));
+    vec3 specular = (pow(-material.metallic, 2) + 1) * spec * material.roughness * 2 * light.color; 
 
     return vec3((ambient + diffuse + specular) * light.intensity);
 }
@@ -90,12 +97,12 @@ vec3 CalcDirLight(DirLight light, vec3 normal, mat4 transform, vec3 camPos, vec3
 void main()
 {   
     vec3 output = vec3(0, 0, 0);
-    output += CalcDirLight(o_Light, o_Normal, o_Transform, o_CameraPos, o_Position);
+    output += CalcDirLight(o_Light, o_Normal, o_CameraPos, o_Position, o_MatProps);
     
     vec3 normal = normalize(o_Normal);
 
     vec4 modelTex = texture(t_Albedo, o_TexCoords);
     vec4 skyboxTex = texture(t_Skybox, reflect(normalize(o_CameraPos - o_Position), normal));
 
-    col = vec4(output, 1.0) * mix(modelTex, skyboxTex, 0.5);
+    col = mix(modelTex * vec4(output, 1.0), skyboxTex, pow(o_MatProps.metallic, 1.4)); 
 }

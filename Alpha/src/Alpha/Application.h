@@ -2,12 +2,9 @@
 #include "Window.h"
 #include "Alpha/LayerStack.h"
 #include "Core.h"
-
 #include "Events/Event.h"
 #include <Alpha/Events/ApplicationEvent.h>
-
 #include "Input.h"
-
 #include "ImGui/ImGuiLayer.h"
 
 namespace Alpha

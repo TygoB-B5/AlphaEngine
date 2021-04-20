@@ -116,7 +116,7 @@ namespace Alpha
 
 				glDeleteShader(shader);
 
-				AP_CORE_ERROR("{0}", infoLog.data());
+				AP_CORE_ERROR("{0}", infoLog.data());	
 				AP_CORE_ASSERT(false, "Shader compilation failed!");
 
 				return;

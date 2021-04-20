@@ -18,30 +18,37 @@ public:
 													  "assets/textures/front.jpg", "assets/textures/back.jpg" }));
 		Alpha::Renderer::SetSkybox(m_Skybox);
 
-		for (unsigned short x = 0; x < 1; x++)
+		for (unsigned short y = 0; y < 11; y++)
 		{
-			Alpha::GameObject object;
+			for (unsigned short x = 0; x < 11; x++)
+			{
+				Alpha::GameObject object;
 
-			object.GetTransform()->SetPosition(glm::vec3(x * 10, 0, 0));
-			Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
-			material->SetShader(Alpha::Shader::Create("assets/shaders/BasicLit.glshader"));
-			material->SetAlbedo(Alpha::Texture2D::Create("assets/textures/dragonlore.png"));
-			Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
-			object.AddComponent(renderer);
-			renderer->SetMaterial(material);
+				object.GetTransform()->SetPosition(glm::vec3(x * 3, 0, y * 3));
+				Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
+				material->SetShader(Alpha::Shader::Create("assets/shaders/BasicLit.glshader"));
+				material->SetAlbedo(Alpha::Texture2D::Create("assets/textures/debug.png"));
+				Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
+				object.AddComponent(renderer);
+				renderer->SetMaterial(material);
 
-			Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
-			renderer->SetMesh(mesh);
-			
-			m_GameObjects.push_back(object);
+				Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
+				renderer->SetMesh(mesh);
 
-			m_Future.push_back(std::async([mesh, renderer]
-				{
-				mesh->LoadMeshFromFile("assets/models/dragonlore.obj");
-				}));
+				material->SetRoughness(x * 0.1f);
+				material->SetMetallic(y * 0.1f);
 
-		Alpha::Renderer::AddLight(std::make_shared<Alpha::DirectionalLight>(Alpha::DirectionalLight()));
+				m_GameObjects.push_back(object);
+
+				m_Future.push_back(std::async([mesh, renderer]
+					{
+						mesh->LoadMeshFromFile("assets/models/smoothsphere.obj");
+					}));
+
+			}
 		}
+		
+		Alpha::Renderer::AddLight(std::make_shared<Alpha::DirectionalLight>(Alpha::DirectionalLight()));
 	}
 
 	void CalculateStuff(float deltaTime)
@@ -124,6 +131,7 @@ public:
 		ImGui::SliderFloat3("Light ROtation", (float*)&m_DirRot, -1, 1);
 		for (auto& gameObject : m_GameObjects)
 			ImGui::Text(gameObject.GetName().c_str());
+		ImGui::SliderFloat2("Material Properties", (float*)&m_MaterialProps, 0, 1);
 		ImGui::End();
 	}
 
@@ -150,6 +158,8 @@ public:
 		float oldY = 0;
 		float oldX = 0;
 
+
+		glm::vec2 m_MaterialProps = { 0, 0 };
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 m_CamPos = { 0, 0, 0};
 		glm::vec3 m_DirRot = { -0.5f, -1.0f, -0.1f };

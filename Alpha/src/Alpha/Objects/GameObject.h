@@ -1,7 +1,6 @@
 #pragma once
 #include "Alpha/Core.h"
 #include "Component.h"
-#include "MeshRenderer.h"
 
 #include "Transform.h"
 #include "GameObjectCount.h"

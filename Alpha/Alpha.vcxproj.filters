@@ -58,6 +58,9 @@
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Alpha\Math">
+      <UniqueIdentifier>{fe49c835-3f2a-483f-bfc5-2b9488bc5c02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Alpha.h">
@@ -1440,6 +1443,9 @@
     <ClInclude Include="src\Alpha\Renderer\Skybox.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLMacros.h" />
     <ClInclude Include="src\Alpha\Renderer\DirectionalLight.h" />
+    <ClInclude Include="src\Alpha\Math\Math.h" />
+    <ClInclude Include="src\Alpha\Objects\PhysicsBody.h" />
+    <ClInclude Include="src\Alpha\Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1543,5 +1549,7 @@
     </ClCompile>
     <ClCompile Include="src\Alpha\Renderer\Skybox.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Materials\Material.cpp" />
+    <ClCompile Include="src\Alpha\Physics.cpp" />
+    <ClCompile Include="src\Alpha\Objects\PhysicsBody.cpp" />
   </ItemGroup>
 </Project>

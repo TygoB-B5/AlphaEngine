@@ -21,6 +21,7 @@
 #include "Alpha/Renderer/DirectionalLight.h"
 #include "Alpha/Renderer/Skybox.h"
 
+
 // Macro
 #include "Alpha/Platform/OpenGL/OpenGLMacros.h"
 

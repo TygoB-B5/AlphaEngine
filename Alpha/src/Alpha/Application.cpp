@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Time.h"
 #include "Alpha/Renderer/Renderer.h"
+#include "Alpha/Physics.h"
 
 namespace Alpha
 {
@@ -64,6 +65,7 @@ namespace Alpha
 		while (m_Running)
 		{
 			Time::Tick();
+			Physics::Update(Time::GetDeltaTime());
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(Time::GetDeltaTime());

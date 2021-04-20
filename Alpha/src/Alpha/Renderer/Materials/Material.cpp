@@ -16,5 +16,9 @@ namespace Alpha
 		m_Shader->UploadUniformFloat3("u_Light.direction", light->GetDirection());
 		m_Shader->UploadUniformFloat("u_Light.ambientIntensity", light->GetAmbientIntensity());
 		m_Shader->UploadUniformFloat("u_Light.intensity", light->GetIntensity());
+
+		m_Shader->UploadUniformFloat("u_MatProps.roughness", m_Roughness);
+		m_Shader->UploadUniformFloat("u_MatProps.metallic", m_Metallic);
+
 	}
 }
