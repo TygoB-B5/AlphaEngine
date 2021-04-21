@@ -65,7 +65,8 @@ namespace Alpha
 		while (m_Running)
 		{
 			Time::Tick();
-			Physics::Update(Time::GetDeltaTime());
+
+			Physics::Update(Time::GetDeltaTime(), Time::GetDeltaTime());
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(Time::GetDeltaTime());

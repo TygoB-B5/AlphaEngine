@@ -88,8 +88,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 camPos, vec3 fragPos, Materi
 
     vec3 reflectDir = reflect(-lightDir, normal);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4 + (material.roughness * material.roughness * 256));
-    vec3 specular = (pow(-material.metallic, 2) + 1) * spec * material.roughness * 2 * light.color; 
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4 + (pow(material.roughness, 5) * 512));
+    vec3 specular = (pow(-material.metallic, 2) + 0.5) * spec * material.roughness * light.color; 
 
     return vec3((ambient + diffuse + specular) * light.intensity);
 }
@@ -104,5 +104,5 @@ void main()
     vec4 modelTex = texture(t_Albedo, o_TexCoords);
     vec4 skyboxTex = texture(t_Skybox, reflect(normalize(o_CameraPos - o_Position), normal));
 
-    col = mix(modelTex * vec4(output, 1.0), skyboxTex, pow(o_MatProps.metallic, 1.4)); 
+    col = mix(modelTex * vec4(output, 1.0), skyboxTex, o_MatProps.metallic); 
 }

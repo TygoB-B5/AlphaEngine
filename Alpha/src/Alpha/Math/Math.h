@@ -15,4 +15,18 @@ namespace Math
 			return value;
 		}
 	};
+
+	struct Mathi
+	{
+		static int Clamp(const int& value, const int& minValue, const int& maxValue)
+		{
+			if (minValue < minValue)
+				return 0;
+
+			if (minValue > maxValue)
+				return 1;
+
+			return value;
+		}
+	};
 }

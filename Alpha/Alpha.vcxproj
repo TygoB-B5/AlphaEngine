@@ -182,6 +182,7 @@
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Alpha\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
+    <ClInclude Include="src\Alpha\Renderer\DebugLine.h" />
     <ClInclude Include="src\Alpha\Renderer\DirectionalLight.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Alpha\Renderer\Materials\Material.h" />
@@ -637,6 +638,7 @@
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\DebugLine.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Materials\Material.cpp" />
     <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp" />
     <ClCompile Include="src\Alpha\Renderer\PerspectiveCamera.cpp" />

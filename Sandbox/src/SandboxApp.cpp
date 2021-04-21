@@ -11,25 +11,33 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-
+		
 		Alpha::Ref<Alpha::Skybox> m_Skybox = std::make_shared<Alpha::Skybox>(Alpha::Skybox());
+
+		/*
 		m_Skybox->SetCubemap(Alpha::TextureCubemap::Create({ "assets/textures/right.jpg", "assets/textures/left.jpg",
 													  "assets/textures/bottom.jpg", "assets/textures/top.jpg",
 													  "assets/textures/front.jpg", "assets/textures/back.jpg" }));
+		*/
+		m_Skybox->SetCubemap(Alpha::TextureCubemap::Create({ "assets/textures/posx.jpg", "assets/textures/negx.jpg",
+											  "assets/textures/negy.jpg", "assets/textures/posy.jpg",
+											  "assets/textures/posz.jpg", "assets/textures/negz.jpg" }));
+		
+
 		Alpha::Renderer::SetSkybox(m_Skybox);
 
 		for (unsigned short y = 0; y < 11; y++)
 		{
 			for (unsigned short x = 0; x < 11; x++)
 			{
-				Alpha::GameObject object;
+				Alpha::Ref<Alpha::GameObject> object(new Alpha::GameObject);
 
-				object.GetTransform()->SetPosition(glm::vec3(x * 3, 0, y * 3));
+				object->GetTransform()->SetPosition(glm::vec3(x * 3, 0, y * 3));
 				Alpha::Ref<Alpha::StandardMaterial> material(new Alpha::StandardMaterial);
 				material->SetShader(Alpha::Shader::Create("assets/shaders/BasicLit.glshader"));
 				material->SetAlbedo(Alpha::Texture2D::Create("assets/textures/debug.png"));
 				Alpha::Ref<Alpha::MeshRenderer> renderer(new Alpha::MeshRenderer);
-				object.AddComponent(renderer);
+				object->AddComponent(renderer);
 				renderer->SetMaterial(material);
 
 				Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
@@ -44,7 +52,6 @@ public:
 					{
 						mesh->LoadMeshFromFile("assets/models/smoothsphere.obj");
 					}));
-
 			}
 		}
 		
@@ -111,15 +118,17 @@ public:
 
 		Alpha::Renderer::SubmitSkybox();
 
+		line.DrawLine(m_LinePos, m_LinePos2, m_Camera);
+
 		for (auto& gameObject : m_GameObjects)
 		{
-			auto& meshR = gameObject.GetComponent<Alpha::MeshRenderer>();
+			auto& meshR = gameObject->GetComponent<Alpha::MeshRenderer>();
 			if (!meshR->IsReadyToInit())
 				return;
 
 			//gameObject.GetTransform()->Rotate(glm::vec3(0, 90 * deltaTime, 0));
 
-			auto& pos = gameObject.GetTransform()->GetTransformMatrix();
+			auto& pos = gameObject->GetTransform()->GetTransformMatrix();
 			Alpha::Renderer::Submit(meshR->GetVertexArray(), meshR->GetMaterial(), pos);
 		}
 	}
@@ -130,8 +139,12 @@ public:
 		ImGui::Value("Fps", Alpha::Time::GetFps());
 		ImGui::SliderFloat3("Light ROtation", (float*)&m_DirRot, -1, 1);
 		for (auto& gameObject : m_GameObjects)
-			ImGui::Text(gameObject.GetName().c_str());
+			ImGui::Text(gameObject->GetName().c_str());
 		ImGui::SliderFloat2("Material Properties", (float*)&m_MaterialProps, 0, 1);
+
+		ImGui::SliderFloat3("line1 ", (float*)&m_LinePos, -10, 10);
+		ImGui::SliderFloat3("line2", (float*)&m_LinePos2, -10, 10);
+
 		ImGui::End();
 	}
 
@@ -158,13 +171,16 @@ public:
 		float oldY = 0;
 		float oldX = 0;
 
+		Alpha::DebugLine line;
+		glm::vec3 m_LinePos = { 0, 0, 0 };
+		glm::vec3 m_LinePos2 = { 0, 0, 0 };
 
 		glm::vec2 m_MaterialProps = { 0, 0 };
 		glm::vec3 rot = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 m_CamPos = { 0, 0, 0};
 		glm::vec3 m_DirRot = { -0.5f, -1.0f, -0.1f };
 
-		std::vector<Alpha::GameObject> m_GameObjects;
+		std::vector<Alpha::Ref<Alpha::GameObject>> m_GameObjects;
 
 		Alpha::Ref<Alpha::TextureCubemap> m_SkyboxTex;
 

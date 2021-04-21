@@ -1,7 +1,6 @@
 #pragma once
 #include "glm/glm.hpp"
 #include "Core.h"
-#include <vector>
 #include "Objects/PhysicsBody.h"
 
 namespace Alpha
@@ -9,13 +8,16 @@ namespace Alpha
 	class Physics
 	{
 	public:
-		const glm::vec3 Gravity = { 0, 9.80f, 0 };
-		static void Update(const float& fixedDeltaTime);
-		static void AddPhysicsObject(Ref<PhysicsBody> physicsComponent);
+		Physics();
 
-		void UpdatePhysicsImpl(const float& fixedDeltaTime);
+		static void SetGravity(const glm::vec3& gravity) { s_Gravity = gravity; }
+		static const glm::vec3 GetGravity() { return s_Gravity; }
+
+		static void Update(const float& fixedDeltaTime, const float& deltaTime);
+		static void AddPhysicsObject(Ref<PhysicsBody> physicsComponent) { m_PhysicsObjects.push_back(physicsComponent); }
+
 	private:
-		static Physics* s_Instance;
-		std::vector<Ref<PhysicsBody>> m_PhysicsObjects;
+		static glm::vec3 s_Gravity;
+		static std::vector<Ref<PhysicsBody>> m_PhysicsObjects;
 	};
 }

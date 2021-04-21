@@ -3,21 +3,16 @@
 
 namespace Alpha
 {
-	Physics* Physics::s_Instance = new Physics();
+	glm::vec3 Physics::s_Gravity = glm::vec3(0, -9.81f, 0);
+	std::vector<Ref<PhysicsBody>> Physics::m_PhysicsObjects;
 
-	void Physics::Update(const float& fixedDeltaTime)
+	Physics::Physics()
 	{
-		s_Instance->UpdatePhysicsImpl(fixedDeltaTime);
 	}
 
-	void Physics::AddPhysicsObject(Ref<PhysicsBody> physicsComponent)
-	{
-		s_Instance->m_PhysicsObjects.push_back(physicsComponent);
-	}
-
-	void Physics::UpdatePhysicsImpl(const float& fixedDeltaTime)
+	void Physics::Update(const float& fixedDeltaTime, const float& deltaTime)
 	{
 		for (auto& object : m_PhysicsObjects)
-			object->UpdatePhysics(fixedDeltaTime);
+			object->UpdatePhysics(fixedDeltaTime, deltaTime);
 	}
 }

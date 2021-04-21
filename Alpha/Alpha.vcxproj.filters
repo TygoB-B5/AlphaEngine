@@ -1446,6 +1446,7 @@
     <ClInclude Include="src\Alpha\Math\Math.h" />
     <ClInclude Include="src\Alpha\Objects\PhysicsBody.h" />
     <ClInclude Include="src\Alpha\Physics.h" />
+    <ClInclude Include="src\Alpha\Renderer\DebugLine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Alpha\Application.cpp">
@@ -1551,5 +1552,6 @@
     <ClCompile Include="src\Alpha\Renderer\Materials\Material.cpp" />
     <ClCompile Include="src\Alpha\Physics.cpp" />
     <ClCompile Include="src\Alpha\Objects\PhysicsBody.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\DebugLine.cpp" />
   </ItemGroup>
 </Project>

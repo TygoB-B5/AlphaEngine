@@ -20,6 +20,7 @@
 #include "Alpha/Renderer/Texture.h"
 #include "Alpha/Renderer/DirectionalLight.h"
 #include "Alpha/Renderer/Skybox.h"
+#include "Alpha/Renderer/DebugLine.h"
 
 
 // Macro
@@ -29,7 +30,7 @@
 #include "Alpha/Objects/GameObject.h"
 #include "Alpha/Objects/MeshRenderer.h"
 #include "Alpha/Objects/Transform.h"
-
+#include "Alpha/Objects/PhysicsBody.h"
 
 // Time
 #include "Alpha/Time.h"
