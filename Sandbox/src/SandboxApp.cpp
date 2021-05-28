@@ -14,21 +14,21 @@ public:
 		
 		Alpha::Ref<Alpha::Skybox> m_Skybox = std::make_shared<Alpha::Skybox>(Alpha::Skybox());
 
-		/*
+		
 		m_Skybox->SetCubemap(Alpha::TextureCubemap::Create({ "assets/textures/right.jpg", "assets/textures/left.jpg",
 													  "assets/textures/bottom.jpg", "assets/textures/top.jpg",
 													  "assets/textures/front.jpg", "assets/textures/back.jpg" }));
-		*/
+		/*
 		m_Skybox->SetCubemap(Alpha::TextureCubemap::Create({ "assets/textures/posx.jpg", "assets/textures/negx.jpg",
 											  "assets/textures/negy.jpg", "assets/textures/posy.jpg",
 											  "assets/textures/posz.jpg", "assets/textures/negz.jpg" }));
-		
+		*/
 
 		Alpha::Renderer::SetSkybox(m_Skybox);
 
-		for (unsigned short y = 0; y < 11; y++)
+		for (unsigned short y = 0; y < 1; y++)
 		{
-			for (unsigned short x = 0; x < 11; x++)
+			for (unsigned short x = 0; x < 1; x++)
 			{
 				Alpha::Ref<Alpha::GameObject> object(new Alpha::GameObject);
 
@@ -42,9 +42,6 @@ public:
 
 				Alpha::Ref<Alpha::Mesh> mesh(new Alpha::Mesh);
 				renderer->SetMesh(mesh);
-
-				material->SetRoughness(x * 0.1f);
-				material->SetMetallic(y * 0.1f);
 
 				m_GameObjects.push_back(object);
 
@@ -127,6 +124,9 @@ public:
 				return;
 
 			//gameObject.GetTransform()->Rotate(glm::vec3(0, 90 * deltaTime, 0));
+
+			meshR->GetMaterial()->SetRoughness(m_MaterialProps.x);
+			meshR->GetMaterial()->SetMetallic(m_MaterialProps.y);
 
 			auto& pos = gameObject->GetTransform()->GetTransformMatrix();
 			Alpha::Renderer::Submit(meshR->GetVertexArray(), meshR->GetMaterial(), pos);
