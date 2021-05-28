@@ -10,3 +10,6 @@
 [submodule "Alpha/vendor/glm"]
 	path = Alpha/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Alpha/vendor/reactphysics3d"]
+	path = Alpha/vendor/reactphysics3d
+	url = https://github.com/DanielChappuis/reactphysics3d
