@@ -4,10 +4,17 @@
 
 namespace Alpha
 {
-	OrtographicCamera::OrtographicCamera(float left, float right, float bottom, float top)
-		:  m_ProjectionMatrix(glm::ortho(left, right, bottom, top, -0.1f, 1.0f)), m_ViewMatrix(glm::mat4(1.0f)), m_Position(glm::vec3(0))
+	OrtographicCamera::OrtographicCamera(float width, float height, float size)
+		:  m_ProjectionMatrix(glm::ortho(-width * size, width * size, -height * size, height * size, -0.1f, 1.0f)), m_ViewMatrix(glm::mat4(1.0f)), m_Position(glm::vec3(0)),
+		m_Width(width), m_Height(height), m_Size(size)
 	{
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
+	void OrtographicCamera::RecalculateProjectionMatrixSize()
+	{
+		m_ProjectionMatrix = glm::ortho(-m_Width * m_Size, m_Width * m_Size, -m_Height * m_Size, m_Height * m_Size, -0.1f, 1.0f);
+		RecalculateViewMatrix();
 	}
 
 	void OrtographicCamera::RecalculateViewMatrix()

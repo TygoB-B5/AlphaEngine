@@ -7,10 +7,11 @@ namespace Alpha
 	class OrtographicCamera
 	{
 	public:
-		OrtographicCamera(float left, float right, float bottom, float top);
+		OrtographicCamera(float width, float height, float size);
 
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		void SetRotation(const float& rotation) { m_ZRotation = rotation; RecalculateViewMatrix(); }
+		void SetSize(float size) { if (size < 0) size = 0.01f;  m_Size = size; RecalculateProjectionMatrixSize(); }
 
 		const glm::vec3& GetPosition() { return m_Position; }
 		float GetRotation() { return m_ZRotation; }
@@ -21,6 +22,7 @@ namespace Alpha
 
 	private:
 		void RecalculateViewMatrix();
+		void RecalculateProjectionMatrixSize();
 
 	private:
 		glm::mat4 m_ProjectionMatrix;
@@ -29,5 +31,9 @@ namespace Alpha
 
 		glm::vec3 m_Position;
 		float m_ZRotation = 0.0f;
+
+		float m_Size;
+		float m_Width;
+		float m_Height;
 	};
 }

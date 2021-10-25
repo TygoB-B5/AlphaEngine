@@ -136,9 +136,9 @@ public:
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 	}
+
 	virtual void OnUpdate(float deltaTime) override
 	{
-
 		if (Alpha::Input::IsKeyPressed(AP_KEY_D))
 		{
 			m_SquarePosition.x += 1 * deltaTime;
@@ -158,6 +158,7 @@ public:
 		{
 			m_SquarePosition.y -= 1 * deltaTime;
 		}
+
 
 		Alpha::Renderer::BeginScene(m_Camera);
 
@@ -187,7 +188,21 @@ public:
 	
 	virtual void OnEvent(Alpha::Event& event) override
 	{
+		Alpha::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Alpha::MouseScrolledEvent>(AP_BIND_EVENT_FN(ExampleLayer::OnScrollEvent));
+	}
 
+	bool OnScrollEvent(Alpha::MouseScrolledEvent& e)
+	{
+		m_Size += e.GetYOffset() * 0.1f;
+
+		if (m_Size < 0)
+		{
+			m_Size = 0;
+		}
+
+		m_Camera.SetSize(m_Size);
+		return false;
 	}
 
 	private:
@@ -196,12 +211,13 @@ public:
 		Alpha::Ref<Alpha::Shader> m_SquareShader, m_TextureShader;
 		Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
 
-		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
+		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(1.6f, 0.9f, 1);
 
 		glm::vec3 m_SquarePosition = {0, 0, 0};
 		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.7f };
 
 		Alpha::Ref<Alpha::Texture2D> m_Texture;
+		float m_Size = 1;
 };
 
 class Sandbox : public Alpha::Application
