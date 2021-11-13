@@ -19,6 +19,10 @@
 #include "Alpha/Renderer/RenderCommand.h"
 #include "Alpha/Renderer/OrtographicCamera.h"
 
+// Movement
+#include "Alpha/OrtographicCameraController.h"
+
+
 #include "Alpha/Renderer/Texture.h"
 
 // Time

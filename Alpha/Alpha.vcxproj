@@ -26,19 +26,19 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -161,6 +161,7 @@
     <ClInclude Include="src\Alpha\LayerStack.h" />
     <ClInclude Include="src\Alpha\Log.h" />
     <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
+    <ClInclude Include="src\Alpha\OrtographicCameraController.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -604,6 +605,7 @@
     <ClCompile Include="src\Alpha\Layer.cpp" />
     <ClCompile Include="src\Alpha\LayerStack.cpp" />
     <ClCompile Include="src\Alpha\Log.cpp" />
+    <ClCompile Include="src\Alpha\OrtographicCameraController.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />

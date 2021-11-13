@@ -1,4 +1,6 @@
- #include <Alpha.h>
+#include <Alpha.h>
+
+#include "Alpha/Renderer/Shader.h"
 
 #include "imgui/imgui.h"
 #include "glm/gtc/matrix_transform.hpp"
@@ -62,69 +64,11 @@ public:
 		squareIndexBuffer.reset(Alpha::IndexBuffer::Create(squareIndicis, sizeof(squareIndicis) / sizeof(unsigned int)));
 		squareIndexBuffer->Bind();
 
-		std::string squareVertexSrc = R"(
-		#version 330 core
-	
-		layout(location = 0) in vec3 a_Position;
-	
-		uniform mat4 u_ViewProjection;
-		uniform mat4 u_Transform;		
+		Alpha::Ref<Alpha::Shader> m_SquareShader = m_ShaderLibrary.Load("assets/shaders/Square.glsl");
 
-		void main()
-		{
-			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-		}
-	)";
-
-		std::string squareFragmentSrc = R"(
-		#version 330 core
-
-		layout(location = 0) out vec4 o_Color;
-
-		uniform vec3 u_Color;	
-		
-		void main()
-		{
-			o_Color = vec4(u_Color, 1.0);
-		}
-	)";
-
-		m_SquareShader.reset(Alpha::Shader::Create(squareVertexSrc, squareFragmentSrc));
 		m_SquareShader->Bind();
 
-		std::string textureVertexSrc = R"(
-		#version 330 core
-	
-		layout(location = 0) in vec3 a_Position;
-		layout(location = 1) in vec2 a_TexCoord;
-		
-		out vec2 v_TexCoord;	
-
-		uniform mat4 u_ViewProjection;
-		uniform mat4 u_Transform;		
-
-		void main()
-		{
-			v_TexCoord = a_TexCoord;
-			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-		}
-	)";
-
-		std::string textureFragmentSrc = R"(
-		#version 330 core
-
-		layout(location = 0) out vec4 o_Color;	
-
-		in vec2 v_TexCoord;
-		uniform sampler2D u_Texture;
-
-		void main()
-		{
-			o_Color = texture(u_Texture, v_TexCoord);
-		}
-	)";
-
-		m_TextureShader.reset(Alpha::Shader::Create(textureVertexSrc, textureFragmentSrc));
+		Alpha::Ref<Alpha::Shader> m_TextureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Alpha::Texture2D::Create("assets/textures/no.png");
 
@@ -139,31 +83,13 @@ public:
 
 	virtual void OnUpdate(float deltaTime) override
 	{
-		if (Alpha::Input::IsKeyPressed(AP_KEY_D))
-		{
-			m_SquarePosition.x += 1 * deltaTime;
-		}
+		m_OrtographicCameraController.OnUpdate(deltaTime);
 
-		if (Alpha::Input::IsKeyPressed(AP_KEY_A))
-		{
-			m_SquarePosition.x -= 1 * deltaTime;
-		}
-
-		if (Alpha::Input::IsKeyPressed(AP_KEY_W))
-		{
-			m_SquarePosition.y += 1 * deltaTime;
-		}
-		
-		if (Alpha::Input::IsKeyPressed(AP_KEY_S))
-		{
-			m_SquarePosition.y -= 1 * deltaTime;
-		}
-
-
-		Alpha::Renderer::BeginScene(m_Camera);
+		Alpha::Renderer::BeginScene(m_OrtographicCameraController.GetCamera());
 
 		Alpha::RenderCommand::SetClearColor({ 0.3f, 0.3f, 0.3f, 1.0f });
 		Alpha::RenderCommand::Clear();
+
 		m_Texture->Bind();
 		for (unsigned short x = 0; x < 20; x++)
 		{
@@ -171,12 +97,12 @@ public:
 			{
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(x * 0.1f + 1.8f, y * 0.1f, 0));
 				glm::mat4 transformAndScale = glm::scale(transform, glm::vec3(0.04f, 0.04f, 0.04f));
-				m_SquareShader->UploadUniformFloat3("u_Color", m_SquareColor);
-				Alpha::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transformAndScale);
+				m_ShaderLibrary.Get("Square")->UploadUniformFloat3("u_Color", m_SquareColor);
+				Alpha::Renderer::Submit(m_ShaderLibrary.Get("Square"), m_SquareVertexArray, transformAndScale);
 			}
 		}
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition + glm::vec3(0.5f, 0.5f, 0));
-		Alpha::Renderer::Submit(m_TextureShader, m_SquareVertexArray, transform);
+		Alpha::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_SquareVertexArray, transform);
 	}
 
 	virtual void OnImGuiRender() override
@@ -185,39 +111,23 @@ public:
 		ImGui::ColorEdit3("SquareColor", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
-	
+
 	virtual void OnEvent(Alpha::Event& event) override
 	{
-		Alpha::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Alpha::MouseScrolledEvent>(AP_BIND_EVENT_FN(ExampleLayer::OnScrollEvent));
+		m_OrtographicCameraController.OnEvent(event);
 	}
 
-	bool OnScrollEvent(Alpha::MouseScrolledEvent& e)
-	{
-		m_Size += e.GetYOffset() * 0.1f;
+private:
+	Alpha::ShaderLibrary m_ShaderLibrary;
+	Alpha::Ref<Alpha::VertexArray> m_VertexArray;
+	Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
 
-		if (m_Size < 0)
-		{
-			m_Size = 0;
-		}
+	Alpha::OrtographicCameraController m_OrtographicCameraController = Alpha::OrtographicCameraController((16.0f / 9.0f), true);
 
-		m_Camera.SetSize(m_Size);
-		return false;
-	}
+	glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.7f };
+	glm::vec3 m_SquarePosition = { 0.0f, 0.0f, 0.0f };
 
-	private:
-		Alpha::Ref<Alpha::VertexArray> m_VertexArray;
-
-		Alpha::Ref<Alpha::Shader> m_SquareShader, m_TextureShader;
-		Alpha::Ref<Alpha::VertexArray> m_SquareVertexArray;
-
-		Alpha::OrtographicCamera m_Camera = Alpha::OrtographicCamera(1.6f, 0.9f, 1);
-
-		glm::vec3 m_SquarePosition = {0, 0, 0};
-		glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.7f };
-
-		Alpha::Ref<Alpha::Texture2D> m_Texture;
-		float m_Size = 1;
+	Alpha::Ref<Alpha::Texture2D> m_Texture;
 };
 
 class Sandbox : public Alpha::Application

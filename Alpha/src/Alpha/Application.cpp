@@ -1,5 +1,6 @@
 #include "appch.h"
 #include "Application.h"
+#include "Renderer/Renderer.h"
 #include "Time.h"
 
 namespace Alpha
@@ -15,6 +16,8 @@ namespace Alpha
 		m_Window->SetEventCallback(AP_BIND_EVENT_FN(Application::OnEvent));
 
 		m_ImGuiLayer = new ImGuiLayer;
+
+		Renderer::Init();
 		Time::Init();
 
 		PushOverlay(m_ImGuiLayer);
@@ -29,6 +32,8 @@ namespace Alpha
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(AP_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(AP_BIND_EVENT_FN(Application::OnWindowResize));
+
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -56,14 +61,31 @@ namespace Alpha
 		return true;
 	}
 
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetHeight() == 0 || e.GetWidth() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+
+		return false;
+	}
+
 	void Application::Run()
 	{
 		while (m_Running)
 		{
 			Time::Tick();
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(Time::GetDeltaTime());
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(Time::GetDeltaTime());
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

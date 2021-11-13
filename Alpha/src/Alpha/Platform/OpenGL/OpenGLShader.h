@@ -1,19 +1,26 @@
 #pragma once
 
+#include "glad/glad.h"
 #include <string>
 #include "Alpha/Renderer/Shader.h"
+#include <unordered_map>
 #include "glm/gtc/type_ptr.hpp"
+
 
 namespace Alpha
 {
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		OpenGLShader(const std::string& filepath);
+
 		~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void UnBind() const  override;
+
+		virtual const std::string& GetName() const override { return m_Name; }
 
 		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) override;
 		virtual void UploadUniformMat3(const std::string& name, const glm::mat3& matrix) override;
@@ -28,6 +35,10 @@ namespace Alpha
 		virtual inline uint32_t GetProgram() const override { return m_RendererID; }
 
 	private:
+		std::unordered_map<GLenum, std::string> PreProces(const std::string& source);
+		std::string ReadFile(const std::string& filepath);
+		void Compile(const std::unordered_map<GLenum, std::string>&	 source);
 		uint32_t m_RendererID = 0;
+		std::string m_Name;
 	};
 }
