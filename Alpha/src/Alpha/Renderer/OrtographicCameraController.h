@@ -3,7 +3,7 @@
 #include "Alpha/Renderer/OrtographicCamera.h"
 
 #include "glm/glm.hpp"
-#include "Alpha/Time.h"
+#include "Alpha/Core/Time.h"
 
 #include "Alpha/Events/ApplicationEvent.h"
 #include "Alpha/Events/MouseEvent.h"

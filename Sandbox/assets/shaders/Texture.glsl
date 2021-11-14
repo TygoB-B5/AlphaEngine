@@ -4,7 +4,7 @@
 layout(location = 0) in vec3 a_Position;
 layout(location = 1) in vec2 a_TexCoord;
 
-out vec2 v_TexCoord;	
+out vec2 v_TexCoord;
 
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;		
@@ -21,10 +21,17 @@ void main()
 layout(location = 0) out vec4 o_Color;	
 
 in vec2 v_TexCoord;
+
+uniform vec4 u_Color;
 uniform sampler2D u_Texture;
 
 void main()
 {
-	o_Color = texture(u_Texture, v_TexCoord);
+	o_Color = texture(u_Texture, v_TexCoord) * u_Color;
+
+	if(o_Color.a <= 0)
+	{
+	discard;
+	}
 }
 

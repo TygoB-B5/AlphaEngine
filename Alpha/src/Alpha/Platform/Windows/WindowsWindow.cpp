@@ -72,6 +72,7 @@ namespace Alpha
 			glfwSetErrorCallback(GLFWErrorcallback);
 			s_GLFWInitialized = true;
 		}
+		AP_CORE_INFO("Initialized GLFW");
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 

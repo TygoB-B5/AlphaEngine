@@ -7,6 +7,9 @@
     <Filter Include="src\Alpha">
       <UniqueIdentifier>{626A91B2-CED4-4529-1713-F7CE83BC237E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Alpha\Core">
+      <UniqueIdentifier>{FA5B1620-E629-0A26-CFBD-7A4CBB2AE68A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Alpha\Events">
       <UniqueIdentifier>{06543F84-F24C-5ED6-1B7F-435B07D73DE2}</UniqueIdentifier>
     </Filter>
@@ -54,14 +57,38 @@
     <ClInclude Include="src\Alpha.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Application.h">
-      <Filter>src\Alpha</Filter>
+    <ClInclude Include="src\Alpha\Core\Application.h">
+      <Filter>src\Alpha\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\Core.h">
-      <Filter>src\Alpha</Filter>
+    <ClInclude Include="src\Alpha\Core\Core.h">
+      <Filter>src\Alpha\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\EntryPoint.h">
-      <Filter>src\Alpha</Filter>
+    <ClInclude Include="src\Alpha\Core\EntryPoint.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\Input.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\KeyCodes.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\Layer.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\LayerStack.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\Log.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\MouseButtoncodes.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\Time.h">
+      <Filter>src\Alpha\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Alpha\Core\Window.h">
+      <Filter>src\Alpha\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Events\ApplicationEvent.h">
       <Filter>src\Alpha\Events</Filter>
@@ -77,24 +104,6 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\ImGui\ImGuiLayer.h">
       <Filter>src\Alpha\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Input.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\KeyCodes.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Layer.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\LayerStack.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Log.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\MouseButtoncodes.h">
-      <Filter>src\Alpha</Filter>
     </ClInclude>
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
@@ -132,6 +141,9 @@
     <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h">
       <Filter>src\Alpha\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Alpha\Renderer\OrtographicCameraController.h">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Alpha\Renderer\RenderCommand.h">
       <Filter>src\Alpha\Renderer</Filter>
     </ClInclude>
@@ -149,12 +161,6 @@
     </ClInclude>
     <ClInclude Include="src\Alpha\Renderer\VertexArray.h">
       <Filter>src\Alpha\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Time.h">
-      <Filter>src\Alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Alpha\Window.h">
-      <Filter>src\Alpha</Filter>
     </ClInclude>
     <ClInclude Include="src\appch.h">
       <Filter>src</Filter>
@@ -1401,26 +1407,29 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alpha\OrtographicCameraController.h" />
+    <ClInclude Include="src\Alpha\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Alpha\Application.cpp">
-      <Filter>src\Alpha</Filter>
+    <ClCompile Include="src\Alpha\Core\Application.cpp">
+      <Filter>src\Alpha\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Core\Layer.cpp">
+      <Filter>src\Alpha\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Core\LayerStack.cpp">
+      <Filter>src\Alpha\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Core\Log.cpp">
+      <Filter>src\Alpha\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Alpha\Core\Time.cpp">
+      <Filter>src\Alpha\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\ImGui\ImGuiBuild.cpp">
       <Filter>src\Alpha\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\ImGui\ImGuiLayer.cpp">
       <Filter>src\Alpha\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Alpha\Layer.cpp">
-      <Filter>src\Alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Alpha\LayerStack.cpp">
-      <Filter>src\Alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Alpha\Log.cpp">
-      <Filter>src\Alpha</Filter>
     </ClCompile>
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Alpha\Platform\OpenGL</Filter>
@@ -1455,6 +1464,9 @@
     <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp">
       <Filter>src\Alpha\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Alpha\Renderer\OrtographicCameraController.cpp">
+      <Filter>src\Alpha\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp">
       <Filter>src\Alpha\Renderer</Filter>
     </ClCompile>
@@ -1473,15 +1485,12 @@
     <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp">
       <Filter>src\Alpha\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\Time.cpp">
-      <Filter>src\Alpha</Filter>
-    </ClCompile>
     <ClCompile Include="src\appch.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Alpha\OrtographicCameraController.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

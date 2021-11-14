@@ -19,6 +19,6 @@ namespace Alpha
 		virtual const std::vector<Ref<VertexBuffer>> GetVertexBuffers() = 0;
 		virtual const Ref<IndexBuffer> GetIndexbuffer() = 0;
 
-		static VertexArray* Create();
+		static Ref<VertexArray> Create();
 	};
 }

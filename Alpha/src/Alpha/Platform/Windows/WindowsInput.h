@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Alpha/Input.h"
+#include "Alpha/Core/Input.h"
 
 namespace Alpha
 {

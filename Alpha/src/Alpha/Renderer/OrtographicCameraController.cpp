@@ -2,8 +2,8 @@
 
 #include "OrtographicCameraController.h"
 
-#include "Alpha/Input.h"
-#include "Alpha/KeyCodes.h"
+#include "Alpha/Core/Input.h"
+#include "Alpha/Core/KeyCodes.h"
 
 
 namespace Alpha
@@ -11,7 +11,7 @@ namespace Alpha
 	OrtographicCameraController::OrtographicCameraController(float aspectRatio, bool rotation)
 		: m_Camera(-aspectRatio * m_ZoomLevel, aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation), m_AspectRatio(aspectRatio)
 	{
-	}
+	} 
 
 	void OrtographicCameraController::OnUpdate(float deltaTime)
 	{

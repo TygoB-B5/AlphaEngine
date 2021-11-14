@@ -146,22 +146,24 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Alpha\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Alpha.h" />
-    <ClInclude Include="src\Alpha\Application.h" />
-    <ClInclude Include="src\Alpha\Core.h" />
-    <ClInclude Include="src\Alpha\EntryPoint.h" />
+    <ClInclude Include="src\Alpha\Core\Application.h" />
+    <ClInclude Include="src\Alpha\Core\Core.h" />
+    <ClInclude Include="src\Alpha\Core\EntryPoint.h" />
+    <ClInclude Include="src\Alpha\Core\Input.h" />
+    <ClInclude Include="src\Alpha\Core\KeyCodes.h" />
+    <ClInclude Include="src\Alpha\Core\Layer.h" />
+    <ClInclude Include="src\Alpha\Core\LayerStack.h" />
+    <ClInclude Include="src\Alpha\Core\Log.h" />
+    <ClInclude Include="src\Alpha\Core\MouseButtoncodes.h" />
+    <ClInclude Include="src\Alpha\Core\Time.h" />
+    <ClInclude Include="src\Alpha\Core\Window.h" />
     <ClInclude Include="src\Alpha\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Alpha\Events\Event.h" />
     <ClInclude Include="src\Alpha\Events\KeyEvent.h" />
     <ClInclude Include="src\Alpha\Events\MouseEvent.h" />
     <ClInclude Include="src\Alpha\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Alpha\Input.h" />
-    <ClInclude Include="src\Alpha\KeyCodes.h" />
-    <ClInclude Include="src\Alpha\Layer.h" />
-    <ClInclude Include="src\Alpha\LayerStack.h" />
-    <ClInclude Include="src\Alpha\Log.h" />
-    <ClInclude Include="src\Alpha\MouseButtoncodes.h" />
-    <ClInclude Include="src\Alpha\OrtographicCameraController.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -174,14 +176,13 @@
     <ClInclude Include="src\Alpha\Renderer\Buffer.h" />
     <ClInclude Include="src\Alpha\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Alpha\Renderer\OrtographicCamera.h" />
+    <ClInclude Include="src\Alpha\Renderer\OrtographicCameraController.h" />
     <ClInclude Include="src\Alpha\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Alpha\Renderer\Renderer.h" />
     <ClInclude Include="src\Alpha\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Alpha\Renderer\Shader.h" />
     <ClInclude Include="src\Alpha\Renderer\Texture.h" />
     <ClInclude Include="src\Alpha\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Alpha\Time.h" />
-    <ClInclude Include="src\Alpha\Window.h" />
     <ClInclude Include="src\appch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -599,13 +600,14 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Alpha\Application.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Alpha\Core\Application.cpp" />
+    <ClCompile Include="src\Alpha\Core\Layer.cpp" />
+    <ClCompile Include="src\Alpha\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Alpha\Core\Log.cpp" />
+    <ClCompile Include="src\Alpha\Core\Time.cpp" />
     <ClCompile Include="src\Alpha\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Alpha\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Alpha\Layer.cpp" />
-    <ClCompile Include="src\Alpha\LayerStack.cpp" />
-    <ClCompile Include="src\Alpha\Log.cpp" />
-    <ClCompile Include="src\Alpha\OrtographicCameraController.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Alpha\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -617,13 +619,13 @@
     <ClCompile Include="src\Alpha\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Alpha\Renderer\OrtographicCamera.cpp" />
+    <ClCompile Include="src\Alpha\Renderer\OrtographicCameraController.cpp" />
     <ClCompile Include="src\Alpha\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Alpha\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Shader.cpp" />
     <ClCompile Include="src\Alpha\Renderer\Texture.cpp" />
     <ClCompile Include="src\Alpha\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Alpha\Time.cpp" />
     <ClCompile Include="src\appch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

@@ -1,6 +1,6 @@
 #include "appch.h"
 #include "Application.h"
-#include "Renderer/Renderer.h"
+#include "Alpha/Renderer/Renderer.h"
 #include "Time.h"
 
 namespace Alpha
@@ -14,6 +14,8 @@ namespace Alpha
 
 		m_Window = Scope<Window>(Window::Create());
 		m_Window->SetEventCallback(AP_BIND_EVENT_FN(Application::OnEvent));
+
+		m_Window->SetVsync(false);
 
 		m_ImGuiLayer = new ImGuiLayer;
 

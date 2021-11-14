@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Alpha/Log.h"
+#include "Alpha/Core/Log.h"
 
 #include <memory>
 #include <ostream>

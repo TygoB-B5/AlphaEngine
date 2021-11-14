@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Alpha/Core.h"
+#include "Alpha/Core/Core.h"
 #include "Layer.h"
 
 namespace Alpha

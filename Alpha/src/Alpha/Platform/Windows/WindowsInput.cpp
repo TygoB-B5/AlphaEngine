@@ -1,6 +1,6 @@
 #include "appch.h"
 #include "WindowsInput.h"
-#include "Alpha/Application.h"
+#include "Alpha/Core/Application.h"
 #include "GLFW/glfw3.h"
 
 namespace Alpha
