@@ -36,6 +36,7 @@ namespace Alpha
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+		float m_LastTickTime = 0.0f;
 
 	private:
 		static Application* s_Instance;

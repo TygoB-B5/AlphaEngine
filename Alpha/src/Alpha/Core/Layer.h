@@ -2,6 +2,7 @@
 
 #include "Alpha/Core/Core.h"
 #include "Alpha/Events/Event.h"
+#include "Time.h"
 
 namespace Alpha
 {
@@ -13,7 +14,7 @@ namespace Alpha
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnUpdate(Timestep deltaTime) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

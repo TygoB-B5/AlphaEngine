@@ -81,12 +81,14 @@ namespace Alpha
 	{
 		while (m_Running)
 		{
-			Time::Tick();
+			float newTime = Time::GetElapsedTime();
+			Timestep newTs = m_LastTickTime - newTime;
+			m_LastTickTime = newTime;
 
 			if (!m_Minimized)
 			{
 				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(Time::GetDeltaTime());
+					layer->OnUpdate(newTs);
 			}
 
 			m_ImGuiLayer->Begin();

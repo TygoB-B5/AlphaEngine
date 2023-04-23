@@ -63,8 +63,10 @@ namespace Alpha
 
     void ImGuiLayer::OnImGuiRender()
     {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        static bool show = false;
+
+        if(show)
+            ImGui::ShowDemoWindow(&show);
     }
 
     void ImGuiLayer::Begin()

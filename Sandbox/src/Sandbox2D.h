@@ -12,7 +12,7 @@ public:
 	virtual void OnDetach() override;
 
 	virtual void OnImGuiRender() override;
-	virtual void OnUpdate(float deltaTime) override;
+	virtual void OnUpdate(Alpha::Timestep deltaTime) override;
 	virtual void OnEvent(Alpha::Event& event) override;
 
 private:

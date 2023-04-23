@@ -28,7 +28,7 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::End();
 }
 
-void Sandbox2D::OnUpdate(float deltaTime)
+void Sandbox2D::OnUpdate(Alpha::Timestep deltaTime)
 {
 	m_OrtographicCameraController.OnUpdate(deltaTime);
 
