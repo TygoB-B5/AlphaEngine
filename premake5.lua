@@ -17,6 +17,7 @@ IncludeDir["Glad"] = "Alpha/vendor/Glad/include"
 IncludeDir["ImGui"] = "Alpha/vendor/imgui"
 IncludeDir["glm"] = "Alpha/vendor/glm"
 IncludeDir["stb_image"] = "Alpha/vendor/stb_image"
+IncludeDir["liccle"] = "Alpha/vendor/liccle/src"
 
 include "Alpha/vendor/GLFW"
 include "Alpha/vendor/Glad"
@@ -48,6 +49,9 @@ project "Alpha"
         "%{prj.name}/vendor/stb_image/**.h",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl",
+        "%{prj.name}/vendor/liccle/src/**.c",
+        "%{prj.name}/vendor/liccle/src/**.h",
+        "%{prj.name}/vendor/liccle/src/**.cpp",
     }
 
     defines
@@ -63,7 +67,8 @@ project "Alpha"
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.stb_image}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.liccle}"
     }
 
     links
